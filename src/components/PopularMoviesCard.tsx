@@ -5,7 +5,7 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import {useNavigate} from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
-import { PopularMovies, Movie } from '../types/PopularMovies.type'
+import {Movie } from '../types/PopularMovies.type'
 
 
 
@@ -33,17 +33,18 @@ const HomePageCard = (props: Props) => {
     return (
 
         <>
+        <h2>Popular Movies</h2>
         <CardGroup>
             {popularMovies?.results.map((movie: Movie) => (
                 <Card key={movie.id} style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                    <Card.Body>
+                    {/* <Card.Body>
                         <Card.Title>{movie.title}</Card.Title>
                         <Card.Text>
                             {movie.overview}
                         </Card.Text>
                         <Button onClick={navToMovie} variant="primary">Go somewhere</Button>
-                    </Card.Body>
+                    </Card.Body> */}
                 </Card>
             ))}
         </CardGroup>

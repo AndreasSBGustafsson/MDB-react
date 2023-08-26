@@ -29,3 +29,11 @@ const get = async <T>(endpoint: string) => {
 export const getPopularMovies =() => {
     return get<PopularMovies>(`/movie/popular`)
 }
+
+export const getOnTheaterMovie = () => {
+    return get<PopularMovies>(`/movie/now_playing?language=sv-SV&region=SE`)
+}
+
+export const getTopRatedMovies = () => {
+    return get<PopularMovies>(`/movie/top_rated`)
+}
