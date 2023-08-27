@@ -19,7 +19,7 @@ const queryClient = useQueryClient()
 const { id } = useParams()
 const dataId = Number(id)
 const [genreId, setGenreId] = React.useState<number|undefined>()
-const [genreList, setGenreList] = React.useState<number[]>([28])
+const [genreList, setGenreList] = React.useState<number[]>([])
 const [object, setObject] = React.useState([])
 
 // Information var användaren kommer ifrån
@@ -45,27 +45,27 @@ console.log("u pressed submit");
 }
 
 
-useEffect(() => {
-  if (genreId) {
-    console.log("genreList", genreList)
-    const newObject: any =() => {
-      return genreList.push(genreId)
-    }
-    const newArray = newObject()
-    setObject(newArray)
-  }
-}
-, [genreId])
+// useEffect(() => {
+//   if (genreId) {
+//     console.log("genreList", genreList)
+//     const newObject: any =() => {
+//       return genreList.push(genreId)
+//     }
+//     const newArray = newObject()
+//     setObject(newArray)
+//   }
+// }
+// , [genreId])
 
-useEffect(() => {
-  if (genreList){
-  const uniqueArray = genreList.filter((item, pos) =>{
-    return genreList.indexOf(item) == pos;
-  }
-  );
-  setGenreList(uniqueArray)
-  }
-}, [genreId])
+// useEffect(() => {
+//   if (genreList){
+//   const uniqueArray = genreList.filter((item, pos) =>{
+//     return genreList.indexOf(item) == pos;
+//   }
+//   );
+//   setGenreList(uniqueArray)
+//   }
+// }, [genreId])
   
 
 
