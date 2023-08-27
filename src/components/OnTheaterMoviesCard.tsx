@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
-import {useNavigate} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
-import { PopularMovies, Movie } from '../types/PopularMovies.type'
+import { PopularMovies, Movie } from '../types/MoviesArray.type'
 
 
 
@@ -36,7 +36,10 @@ const HomePageCard = (props: Props) => {
         <h2>På Bio</h2>
         <CardGroup>
             {popularMovies?.results.map((movie: Movie) => (
-                <Card key={movie.id} style={{ width: '18rem' }}>
+                <Card
+                as ={Link}
+                to={`/movie/${movie.id}`}
+                key={movie.id} style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                     {/* <Card.Body>
                         <Card.Title>{movie.title}</Card.Title>

@@ -1,4 +1,4 @@
-export type PopularMovies = {
+export type MoviesArray = {
     page: number;
     results: Movie[];
     total_pages: number;

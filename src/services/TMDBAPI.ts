@@ -1,15 +1,11 @@
 import axios from "axios"
-import { PopularMovies } from "../types/PopularMovies.type"
+import { MoviesArray } from "../types/MoviesArray.type"
+import { MovieInfo } from "../types/MovieInfo.type"
 
-
-const BASE_URL = import .meta.env.VITE_TMDB_BASE_URL
 const FAKE_DELAY = 1000
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY
-const flag = import.meta.env.VITE_FLAG
-
 
 const instance = axios.create({
-    baseURL: "https://api.themoviedb.org/3/",
+    baseURL: "https://api.themoviedb.org/3",
     timeout: 1000,
     method: "GET",
     headers: {
@@ -27,13 +23,19 @@ const get = async <T>(endpoint: string) => {
 }
 
 export const getPopularMovies =() => {
-    return get<PopularMovies>(`/movie/popular`)
+    return get<MoviesArray>(`/movie/popular`)
 }
 
 export const getOnTheaterMovie = () => {
-    return get<PopularMovies>(`/movie/now_playing?language=sv-SV&region=SE`)
+    return get<MoviesArray>(`/movie/now_playing?language=sv-SV&region=SE`)
 }
 
 export const getTopRatedMovies = () => {
-    return get<PopularMovies>(`/movie/top_rated`)
+    return get<MoviesArray>(`/movie/top_rated`)
+}
+
+
+
+export const getMovie = (id: number) => {
+    return get<MovieInfo>(`/movie/${id}?append_to_response=credits`)
 }
