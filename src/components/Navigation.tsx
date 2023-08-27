@@ -15,12 +15,11 @@ const Navigation = () =>{
                 <Navbar.Collapse id="basic-navbar-nav">
                      <Nav className="me-auto">
                           <Nav.Link as={NavLink} to="/" >Home</Nav.Link>
-                          <Nav.Link as={NavLink} to="/about">About</Nav.Link>
-                          <Nav.Link as={NavLink} to="/contact">Contact</Nav.Link>
+                          <Nav.Link as={NavLink} to="/result" >Genres</Nav.Link>
                      </Nav>
                      <Form>
                           <Form.Control type="text" placeholder="Search" className="mr-sm-2" />
-                          <Button variant="outline-success">Search</Button>
+                          {/* <Button variant="outline-success">Search</Button> */}
                      </Form>
                 </Navbar.Collapse>
               </Container>

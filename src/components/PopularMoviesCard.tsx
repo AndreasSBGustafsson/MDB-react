@@ -23,12 +23,6 @@ const HomePageCard = (props: Props) => {
     const navigate = useNavigate()
 
     const [cardTitle, setCardTitle] = useState(["Popular Titles"])
-
-    const navToMovie = () => {
-        console.log("navToMovie", "you Clicked to a Movie");
-        
-        navigate("/movie/")
-    }
   
     return (
 
@@ -40,7 +34,9 @@ const HomePageCard = (props: Props) => {
                 as ={Link}
                 to={`/movie/${movie.id}`}
                 key={movie.id} style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                    <Card.Img variant="top"
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}  
+                    />
                     {/* <Card.Body>
                         <Card.Title>{movie.title}</Card.Title>
                         <Card.Text>

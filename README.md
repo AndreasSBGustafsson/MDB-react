@@ -1,27 +1,22 @@
-# React + TypeScript + Vite
+1. Saker att Fixa:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+cast types for enskilda filmer och personer är inte likadana! För tillfället funkar det att kasta in parametrar även om type:sen inte stämmer. Men detta bör åtgärdas för stabilisera datainhämtning och säkerställning!
 
-Currently, two official plugins are available:
+Fixa Alla Genre, ska det var i flikar, ska man kunna välja dem i en helt egen sida med meny? titta in och sätt upp ( med pagenering!)!!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. Se till att all fetchning sker snyggt och korrekt, utan onödiga hämtningar.
 
-## Expanding the ESLint configuration
+3. Fixa Felhanteringar och göra loading spinner (globalt?)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+4. Fixa fungerade sökfunktion till sidan.
 
-- Configure the top-level `parserOptions` property like this:
+5. Fixa fungerande och tillfredställande styling, titta upp carousel eller slider för smarta lösningar med scroll funktion (glöm inte , Mobile View First!).
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+6. Se över alla komponenter, effiktivisera dem och fixa custom hooks.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+7. Lägga till toastify för snygga meddelanden till besökare.
+
+8. See över att spara sökhistorik som överlever mellan sessioner ( spara data med local.storage?)
+
+
+ s

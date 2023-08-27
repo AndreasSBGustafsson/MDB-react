@@ -5,7 +5,7 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import {Link,useNavigate} from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
-import { PopularMovies, Movie } from '../types/MoviesArray.type'
+import { Movie } from '../types/MoviesArray.type'
 
 
 

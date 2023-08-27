@@ -1,7 +1,7 @@
 import { Card, CardGroup } from "react-bootstrap"
 import { useQuery } from "@tanstack/react-query"
 import * as TMBD from '../services/TMDBAPI'
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useEffect } from "react"
 
 type Props = {}
@@ -14,7 +14,8 @@ const MoviePage = (props: Props) => {
 
   const {
     data: movie,
-  } = useQuery(['movie'],()=>TMBD.getMovie(movieId))
+  } = useQuery(['movie'],()=>TMBD.getMovie(movieId)
+  )
 
 
  useEffect(() => {
@@ -94,8 +95,14 @@ const MoviePage = (props: Props) => {
 
       <Card>
         <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Card.Text>Actors: {movie?.credits.cast.map((actor) => actor.name).join(', ')}
-          </Card.Text>
+          <Card.Title>Actors:
+          </Card.Title>
+          {movie?.credits.cast.map((actor) => (
+            <>
+            <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} />
+            <Card.Text as={Link} to={`/actor/${actor.id}`}>{actor.name}</Card.Text>
+              </>
+          ))}
         </Card.Body>
         <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <Card.Text>Production Countries: {movie?.production_countries.map((country) => country.name).join(', ')}</Card.Text>

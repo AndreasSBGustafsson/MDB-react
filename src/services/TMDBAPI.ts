@@ -1,6 +1,8 @@
 import axios from "axios"
 import { MoviesArray } from "../types/MoviesArray.type"
 import { MovieInfo } from "../types/MovieInfo.type"
+import { ActorInfo } from "../types/ActorInfo.types"
+import { GenreList, GenreObjects} from "../types/Genre.types"
 
 const FAKE_DELAY = 1000
 
@@ -39,3 +41,18 @@ export const getTopRatedMovies = () => {
 export const getMovie = (id: number) => {
     return get<MovieInfo>(`/movie/${id}?append_to_response=credits`)
 }
+
+export const getActor = (id: number) => {
+    return get<ActorInfo>(`/person/${id}?append_to_response=credits`)
+}
+
+
+export const getGenreList = () => {
+    return get<GenreList>(`/genre/movie/list`)
+}
+
+export const getGenres = (data:number[]) => {
+    return get<MoviesArray>(`/discover/movie?language=sv-SV&region=SE&with_genres=${data.map((genre) => genre).join(",")}&desc_by=popularity`)
+}
+    
+

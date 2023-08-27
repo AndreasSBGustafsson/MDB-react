@@ -1,3 +1,5 @@
+import { Credits } from './Credits.types';
+
 export type MovieInfo = {
     adult: boolean;
     backdrop_path: string;
@@ -70,38 +72,7 @@ export type Similar = {
     vote_count: number;
 };
 
-export type Credits = {
-    cast: Cast[];
-    crew: Crew[];
-};  
 
-export type Cast = {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path?: string;
-    cast_id: number;
-    character: string;
-    credit_id: string;
-    order: number;
-};
-
-type Crew = {
-    adult: boolean;
-    gender: number;
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path?: string;
-    credit_id: string;
-    department: string;
-    job: string;
-};
 
 export type Videos = {
     results: Result[];
