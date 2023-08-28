@@ -1,6 +1,3 @@
-import PopularMoviesCard from '../components/MovieCarousel'
-import OnTheaterMoviesCard from '../components/OnTheaterMoviesCard'
-import TopRatedMoviesCard from '../components/TopRatedMoviesCard'
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
 import MovieCarousel from '../components/MovieCarousel'
@@ -18,11 +15,11 @@ const HomePage = (props: Props) => {
   } = useQuery(['onTheater'],TMBD.getOnTheaterMovie)
 
 
-const {
-  data:topRated
-} = useQuery(['topRated'],TMBD.getTopRatedMovies)
+  const {
+    data:topRated
+  } = useQuery(['topRated'],TMBD.getTopRatedMovies)
 
-console.log("popularMovies", popularMovies);
+  console.log("popularMovies", popularMovies);
 
 
   return (
@@ -35,15 +32,18 @@ console.log("popularMovies", popularMovies);
     <MovieCarousel
     data={popularMovies}
     title={"Popular Movies"}
+    navTo={"popularmovies"}
 
     />
     <MovieCarousel 
     data={onTheater}
     title={"On Theater"}
+    navTo='ontheater'
     />
     <MovieCarousel 
     data={topRated}
     title={"Top Rated"}
+    navTo='toprated'
     />
   </>
   )

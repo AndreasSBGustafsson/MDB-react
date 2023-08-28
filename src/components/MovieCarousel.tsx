@@ -12,9 +12,10 @@ import { Carousel } from 'react-bootstrap'
 type Props = {
     data:MoviesArray|undefined
     title:string
+    navTo:string
 }
 
-const MovieCarousel = ({data, title}: Props) => {
+const MovieCarousel = ({data, title, navTo}: Props) => {
     console.log("PopularMoviesCard",data);
     
     
@@ -25,16 +26,19 @@ const MovieCarousel = ({data, title}: Props) => {
     // } = useQuery(['popular'],TMBD.getPopularMovies)
 
     const [cardTitle, setCardTitle] = useState("")
+    const [navTitle, setNavTitle] = useState("")
     
     useEffect(() => {
         setCardTitle(title)
+        setNavTitle(navTo)
+        
     }
     ,[])
   
     return (
 
         <>
-        <h2 onClick={()=>navigate(`/result/popularmovies`)}>{cardTitle}</h2>
+        <h2 onClick={()=>navigate(`/result/${navTitle}`)}>{cardTitle}</h2>
         <Carousel
         indicators={false}
         
