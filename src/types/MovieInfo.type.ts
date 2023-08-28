@@ -23,12 +23,11 @@ export type MovieInfo = {
     status: string;
     tagline?: string;
     title: string;
-    video: boolean;
+    videos: Videos;
     vote_average: number;
     vote_count: number;
     // similar: Similar[];
     credits: Credits;
-    // videos: Videos[];
     images: Images;
 
 };
@@ -79,14 +78,16 @@ export type Videos = {
 };
 
 export type Result = {
-    id: string;
     iso_639_1: string;
     iso_3166_1: string;
-    key: string;
     name: string;
+    key: string;
     site: string;
     size: number;
     type: string;
+    official: boolean;
+    puplished_at: string;
+    id: string;
 };
 
 export type Images = {

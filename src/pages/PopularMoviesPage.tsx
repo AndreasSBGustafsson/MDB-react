@@ -13,30 +13,28 @@ type Props = {}
 const Result = (props: Props) => {
 
 const [genreList, setGenreList] = React.useState<number[]>([])
-const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
-
 
 const navigate =useNavigate()
 
 const {
   data
-} = useQuery(['genreList'],TMBD.getGenreList)
+} = useQuery(['popularMovies'],TMBD.getPopularMovies)
 
-const {
+/* const {
   data: gen,
   refetch,
-} = useQuery(['genre'],()=> TMBD.getGenres(genreList))
+} = useQuery(['genre'],()=> TMBD.getGenres(genreList)) */
 
-const submit = (e:any) => {
+/* const submit = (e:any) => {
 console.log("u pressed submit");
   refetch()
-}
+} */
 
   return (
-    <>
-      {/* farligt döpt kod nedan! */}
-      <div>Genre</div>
-        <Card>
+      <>
+       <div>Popular Movies</div>
+    
+       {/*  <Card>
           <Form>
             {data?.genres.map((genre: GenreObjects) => (
               <Form.Check
@@ -48,30 +46,24 @@ console.log("u pressed submit");
                 onChange={(e) => {
                   const genreId = Number(e.target.value);
                   if (e.target.checked) {
-                    setGenreList((prevGenreList) => [...prevGenreList, genreId])
-                    setSelectedGenres((prevSelectedGenres) => [...prevSelectedGenres, genre.name])
+                    setGenreList((prevGenreList) => [...prevGenreList, genreId]);
                   } else {
                     setGenreList((prevGenreList) =>
                       prevGenreList.filter((id) => id !== genreId)
-                    )
-                    setSelectedGenres((prevSelectedGenres) =>
-                    prevSelectedGenres.filter((name) => name !== genre.name)
-                  )     
+                    );     
                   }
                 }}
               />
             ))}
             <Button onClick={(e)=>submit(e)} variant="primary">Submit</Button>
           </Form>
-        </Card>
-        {!gen && <div>Loading...</div>}
-        {gen && gen.results.length === 0 && <div>No results</div>}
+        </Card>  */}
+        {!data && <div>Loading...</div>}
+        {data?.results && data.results.length === 0 && <div>No results</div>}
 
-        {gen &&(
+        {data?.results && (
           <>
-          {selectedGenres.length < 1 && <div>Select genres!</div>}
-          <div>{selectedGenres.join(', ')}</div>
-            {gen.results.map((movie: any) => (
+            {data.results.map((movie: any) => (
               <Card
               >
                 <div className='d-flex' key={movie.id}
@@ -90,7 +82,6 @@ console.log("u pressed submit");
                         }}
                         >
                         {movie.genre_ids.name}
-                        
                         {movie.overview}
                       </Card.Text>
                       <Link to={`/movie/${movie.id}`}>

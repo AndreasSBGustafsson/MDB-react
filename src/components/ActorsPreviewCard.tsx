@@ -27,7 +27,7 @@ const HomePageCard = (props: Props) => {
     return (
 
         <>
-        <h2 onClick={()=>navigate(`/result/popularmovies`)}>Popular Movies</h2>
+        <h2>Popular Movies</h2>
         <Carousel
         indicators={false}
         

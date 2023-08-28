@@ -1,9 +1,15 @@
+import { ReactNode } from "react";
+
 export type Credits = {
     cast: Cast[];
     crew: Crew[];
 };  
 
 export type Cast = {
+    poster_path: any;
+    backdrop_path: any;
+    title: ReactNode;
+    release_date: ReactNode;
     adult: boolean;
     gender: number;
     id: number;

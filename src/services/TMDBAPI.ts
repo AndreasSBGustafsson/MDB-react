@@ -39,7 +39,7 @@ export const getTopRatedMovies = () => {
 
 
 export const getMovie = (id: number) => {
-    return get<MovieInfo>(`/movie/${id}?append_to_response=credits`)
+    return get<MovieInfo>(`/movie/${id}?append_to_response=credits,similar,images,videos`)
 }
 
 export const getActor = (id: number) => {
