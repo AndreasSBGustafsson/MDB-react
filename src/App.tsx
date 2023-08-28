@@ -15,7 +15,7 @@ import AllActorsPage from './pages/AllActorsPage'
 
 const App = () => {
   return (
-    <>
+    <div className='bg'>
       <Navigation />
       <Container className='mt-2'>
         <Routes>
@@ -30,7 +30,7 @@ const App = () => {
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </Container>
-      </>
+      </div>
       
   )
 }

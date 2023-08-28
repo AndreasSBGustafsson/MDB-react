@@ -65,15 +65,33 @@ console.log("u pressed submit");
           <>
             {data.results.map((movie: any) => (
               <Card
+                /* className='rounded' */
+              style={{
+                /* backgroundColor:'255,255,255,1, 0.5', */
+                backgroundColor:'rgba(0,0,0,0.5)',
+                margin:'1rem',
+                
+              }
+                }
               >
                 <div className='d-flex' key={movie.id}
                 >
                   
-                  <Card.Img onClick={()=>navigate(`/movie/${movie.id}`)}variant="bottom" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} style={{height:'10rem', width:'auto'}}/>
+                  <Card.Img
+                  onClick={()=>navigate(`/movie/${movie.id}`)}
+                  variant="left"
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  style={{height:'10rem', width:'auto'}}
+                    className='rounded-start'
+               /* s */
+                  />
                   
-                    <Card.Body /* style={{flexDirection:'column'}} */
+                    <Card.Body 
+                    className='rounded-end'/* style={{flexDirection:'column'}} */
                      style={{
-                      wordBreak: 'break-word'
+                      wordBreak: 'break-word',
+                      backgroundColor:'white'
+,
                     }}>
                       <Card.Title as={Link} to={`/movie/${movie.id}`}>{movie.title}</Card.Title>
                       <Card.Text style={{

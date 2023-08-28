@@ -31,7 +31,7 @@ console.log("u pressed submit");
 } */
 
   return (
-      <>
+      <div className='bg'>
        <div>Top Rated</div>
     
        {/*  <Card>
@@ -93,7 +93,7 @@ console.log("u pressed submit");
               ))}
           </>
         )}
-    </>
+    </div>
   )
 }
 

@@ -35,9 +35,19 @@ console.log("u pressed submit");
   return (
     <>
       {/* farligt döpt kod nedan! */}
-      <div>Genre</div>
-        <Card>
-          <Form>
+      <div
+      style={{
+        color:'white',
+        }}
+      >Genre</div>
+        <Card
+        className='bg-dark'
+          style={{
+            color:'white',
+          }}
+            >
+          <Form
+          >
             {data?.genres.map((genre: GenreObjects) => (
               <Form.Check
                 key={genre.id}
@@ -69,8 +79,14 @@ console.log("u pressed submit");
 
         {gen &&(
           <>
-          {selectedGenres.length < 1 && <div>Select genres!</div>}
-          <div>{selectedGenres.join(', ')}</div>
+          {selectedGenres.length < 1 && <div style={{color:'white'}}>Select genres!</div>}
+          <div style={{
+            color:'white',
+            fontSize:'1.2rem',
+            margin:'0.5rem',
+            }}  
+            >
+          {selectedGenres.join(', ')}</div>
             {gen.results.map((movie: any) => (
               <Card
               >

@@ -1,34 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import {Link,useNavigate} from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
-import {Movie } from '../types/MoviesArray.type'
+
+import {Movie, MoviesArray } from '../types/MoviesArray.type'
 import { Carousel } from 'react-bootstrap'
 
 
 
-type Props = {}
+type Props = {
+    data:MoviesArray|undefined
+    title:string
+}
 
-const HomePageCard = (props: Props) => {
+const MovieCarousel = ({data, title}: Props) => {
+    console.log("PopularMoviesCard",data);
+    
     
     const navigate = useNavigate()
     
-    const {
-    data: popularMovies,
-    } = useQuery(['popular'],TMBD.getPopularMovies)
+    // const {
+    // data: popularMovies,
+    // } = useQuery(['popular'],TMBD.getPopularMovies)
+
+    const [cardTitle, setCardTitle] = useState("")
+    
+    useEffect(() => {
+        setCardTitle(title)
+    }
+    ,[])
   
     return (
 
         <>
-        <h2 onClick={()=>navigate(`/result/popularmovies`)}>Popular Movies</h2>
+        <h2 onClick={()=>navigate(`/result/popularmovies`)}>{cardTitle}</h2>
         <Carousel
         indicators={false}
         
         >
-            {popularMovies?.results.map((movie: Movie) => (
+            {data?.results.map((movie: Movie) => (
                 
                 <Carousel.Item key={movie.id} /* style={{ width: '18rem' }} */>
                     <CardGroup /* className='justify-content-center align-items-center' */>
@@ -82,4 +93,4 @@ const HomePageCard = (props: Props) => {
 
 
 
-export default HomePageCard
+export default MovieCarousel
