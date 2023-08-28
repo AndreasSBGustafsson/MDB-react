@@ -20,7 +20,7 @@ const instance = axios.create({
 
 const get = async <T>(endpoint: string) => {
     const response = await instance.get<T>(endpoint)
-    !!FAKE_DELAY && await new Promise(resolve => setTimeout(resolve, FAKE_DELAY))
+    /* !!FAKE_DELAY && await new Promise(resolve => setTimeout(resolve, FAKE_DELAY)) */
     return response.data
 }
 

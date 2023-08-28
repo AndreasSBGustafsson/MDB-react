@@ -1,7 +1,7 @@
 import { Card, CardGroup, Carousel, CarouselItem } from "react-bootstrap"
 import { useQuery } from "@tanstack/react-query"
 import * as TMBD from '../services/TMDBAPI'
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { Cast } from "../types/Credits.types"
 import Result from "./ResultPage"
@@ -12,6 +12,8 @@ const MoviePage = (props: Props) => {
 
   const { id } = useParams()
   const movieId = Number(id)
+
+  const navigate = useNavigate()
 
 
   const {
@@ -182,7 +184,7 @@ const MoviePage = (props: Props) => {
             ))}
         </Carousel>
 
-        <div style={{fontSize:'24px'}}> See All Actors</div>
+        <div  onClick={()=>navigate(`/actors/${movieId}`)}style={{fontSize:'24px'}}> See All Actors</div>
         {movie?.images &&(
           <>
           <h2>Images</h2>

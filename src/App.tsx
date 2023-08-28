@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 import PopularMoviesPage from './pages/PopularMoviesPage'
 import TopRatedPage from './pages/TopRatedPage'
 import OnTheaterPage from './pages/OnTheaterPage'
+import AllActorsPage from './pages/AllActorsPage'
 
 
 
@@ -20,11 +21,12 @@ const App = () => {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/result' element={<ResultlPage />} />
-          <Route path='/result/popularmoives' element={<PopularMoviesPage />} />
+          <Route path='/result/popularmovies' element={<PopularMoviesPage />} />
           <Route path='/result/toprated' element={<TopRatedPage />} />
           <Route path='/result/ontheater' element={<OnTheaterPage />} />
           <Route path='/movie/:id' element={<MoviePage />} />
           <Route path='/actor/:id' element={<ActorPage />} />
+          <Route path='/actors/:id' element={<AllActorsPage/>} />
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </Container>

@@ -13,16 +13,12 @@ import { Carousel } from 'react-bootstrap'
 type Props = {}
 
 const HomePageCard = (props: Props) => {
-
-    const {
-        data: popularMovies,
-    } = useQuery(['popular'],TMBD.getPopularMovies)
-
-
-
-
+    
     const navigate = useNavigate()
-
+    
+    const {
+    data: popularMovies,
+    } = useQuery(['popular'],TMBD.getPopularMovies)
   
     return (
 
