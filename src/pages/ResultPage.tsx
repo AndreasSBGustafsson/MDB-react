@@ -1,44 +1,69 @@
-import React from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
-import { Link, useNavigate,} from 'react-router-dom'
-import { Card,} from 'react-bootstrap'
-import { GenreObjects } from '../types/Genre.types'
+import React, { useContext, useEffect } from 'react'
+
 import ResultCard from '../components/ResultCard'
 import SortResultCard from '../components/SortResultCard'
+import Bytasida from '../components/Bytasida'
+import useGenreList from '../hooks/useGenreList'
+import useGenres from '../hooks/useGenres'
+import { ResultContext } from '../context/Context'
 
 
 type Props = {}
 
 const Result = (props: Props) => {
 
-const [genreList, setGenreList] = React.useState<number[]>([])
-const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
+const [page, setPage] = React.useState<number>(1)
+const [totalPages, setTotalPages] = React.useState<number>(1)
 
-
-const navigate =useNavigate()
-
-const {
-  data
-} = useQuery(['genreList'],TMBD.getGenreList)
+const {genreListContext} = useContext(ResultContext)
 
 const {
   data: gen,
-  refetch,
-} = useQuery(['genre'],()=> TMBD.getGenres(genreList))
+} = useGenreList(true)
 
-const submit = (e:any) => {
-console.log("u pressed submit");
+const {
+  data: genres,
+  refetch,
+} = useGenres(genreListContext, page)
+
+const handleSortSubmit = () => {
+  console.log("u pressed submit");
+  setPage(1)
+  refetch()
+  
+}
+
+useEffect(() => {
+  if (genres) {
+    console.log("valda genres", genres);
+    setPage(genres.page)
+    setTotalPages(genres.total_pages)
+    
+  }
+}
+, [])
+
+useEffect(() => {
   refetch()
 }
+, [page])
+
+
 
   return (
     <>
-    <SortResultCard/>
-    <ResultCard
+    <SortResultCard
+    submit={handleSortSubmit}
     data={gen}
+    />
+    <ResultCard
+    data={genres}
+    />
+    <Bytasida
+    page={page}
+    totalPages={totalPages} // Pass the total number of pages as needed
+    onNextClick={() => setPage(page + 1)} // Increment page for Next click
+    onPreviousClick={() => setPage(page - 1)} // Decrement page for Previous click
     />
     </>
   )

@@ -9,9 +9,7 @@ type Props = {
 
 const ActorOverview = ({data}: Props) => {
 
-  
     return (
-
         <>
         <Card>
             <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${data?.profile_path}`}
@@ -34,16 +32,8 @@ const ActorOverview = ({data}: Props) => {
                 </Card.Text>
             </Card.Body>
             </Card>
-
-           
-        </>
-        
+        </>   
     )
-
 }
-
-
-
-
 
 export default ActorOverview

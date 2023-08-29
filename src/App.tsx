@@ -10,6 +10,7 @@ import PopularMoviesPage from './pages/PopularMoviesPage'
 import TopRatedPage from './pages/TopRatedPage'
 import OnTheaterPage from './pages/OnTheaterPage'
 import AllActorsPage from './pages/AllActorsPage'
+import { ResultProvider } from './context/Context'
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
     <div className='bg'>
       <Navigation />
       <Container className='mt-2'>
+        <ResultProvider>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/result' element={<ResultlPage />} />
@@ -29,6 +31,7 @@ const App = () => {
           <Route path='/actors/:id' element={<AllActorsPage/>} />
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
+        </ResultProvider>
       </Container>
       </div>
       

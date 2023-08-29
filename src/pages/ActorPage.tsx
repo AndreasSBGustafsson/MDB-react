@@ -4,6 +4,9 @@ import * as TMBD from '../services/TMDBAPI'
 import { useParams, Link } from "react-router-dom"
 import ActorsOverview from "../components/ActorsOverview"
 import ActorCarousel from "../components/ActorCarousel"
+import MovieCarousel from "../components/MovieCarousel"
+import ActorsMoviesCarousel from "../components/ActorsMoviesCarousel"
+import MoiveImgCarousel from "../components/MovieImgCarousel"
 
 type Props = {}
 
@@ -23,6 +26,13 @@ const MoviePage = (props: Props) => {
     <>
     <ActorsOverview
     data={actor}
+    />
+    <ActorsMoviesCarousel  
+    data={actor?.credits}
+    />
+    <MoiveImgCarousel
+    data3={actor}
+    title="Images"
     />
     </>
   )

@@ -1,0 +1,86 @@
+import React from 'react'
+import { Card, CardGroup, Carousel } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { Cast, Credits } from '../types/Credits.types'
+
+type Props = {
+    data:Credits|undefined
+}
+
+const ActorsMoviesCarousel = ({data}: Props) => {
+
+
+    const navigate = useNavigate()
+
+  return (
+    <>
+      <h2>Played in:</h2>
+        
+    <Carousel
+    indicators={false}
+    slide={false}
+    
+    >
+        {data?.cast.map((movie  => (
+            
+            <Carousel.Item key={movie.id} /* style={{ width: '18rem' }} */>
+                <CardGroup /* className='justify-content-center align-items-center' */>
+                    <Card as={Link} to={`/movie/${movie.id}`} key={movie.id}>
+                        <div className='
+                            d-flex
+                            flex-column
+                            justify-content-center 
+                            align-items-center
+                        '
+                        style={{
+                            background:`url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
+                            backgroundSize:'cover',
+                            backgroundPosition:'center',
+                            height:'100%',
+                            
+                            /* backdropFilter:'blur(6px)' */
+                        }}
+                        >
+
+                        <div 
+                        className='d-flex d-column justify-content-center align-items-center'
+                        style={{
+                            
+                            // backdropFilter:'blur(2px)',
+                            
+                            height:'100%',
+                        }}
+                        >
+                        <Card.Img 
+                            className='justify-content-center align-items-center'
+                            variant="Top" 
+                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            style={{
+                                height:'18rem',
+                                width:'auto',
+        
+                                position: 'relative',
+                            }}
+                        />
+                            
+                        <Card.Body
+                        className='d-column'>
+                            <Card.Title style={{color:'white'}}>{movie.title}</Card.Title>
+                        </Card.Body>
+                        </div>
+                        </div>
+                    </Card>
+                </CardGroup>
+            </Carousel.Item>
+    
+            ))
+        )
+
+    }
+    </Carousel>
+  </>
+
+  )
+}
+
+export default ActorsMoviesCarousel

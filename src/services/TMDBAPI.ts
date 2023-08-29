@@ -43,7 +43,7 @@ export const getMovie = (id: number) => {
 }
 
 export const getActor = (id: number) => {
-    return get<ActorInfo>(`/person/${id}?append_to_response=credits`)
+    return get<ActorInfo>(`/person/${id}?append_to_response=credits,images`)
 }
 
 
@@ -51,8 +51,10 @@ export const getGenreList = () => {
     return get<GenreList>(`/genre/movie/list`)
 }
 
-export const getGenres = (data:number[]) => {
-    return get<MoviesArray>(`/discover/movie?language=sv-SV&region=SE&with_genres=${data.map((genre) => genre).join(",")}&desc_by=popularity`)
+export const getGenres = (data:number[], page:number) => {
+    console.log("getGenres")
+    
+    return get<MoviesArray>(`/discover/movie?language=sv-SV&region=SE&with_genres=${data.map((genre) => genre).join(",")}&desc_by=popularity&page=${page}`)
 }
     
 

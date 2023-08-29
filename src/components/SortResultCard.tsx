@@ -1,40 +1,31 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
-import { Link, useNavigate,} from 'react-router-dom'
 import { Card,} from 'react-bootstrap'
-import { GenreObjects } from '../types/Genre.types'
-import { Movie } from '../types/MoviesArray.type'
-import { Cast } from '../types/Credits.types'
-
+import { GenreList, GenreObjects } from '../types/Genre.types'
+import { ResultContext, ResultUpdateContext } from '../context/Context'
+import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query'
+import { MoviesArray } from '../types/MoviesArray.type'
 
 type Props = {
+  data: GenreList| undefined
+  submit: () => void
 }
 
-const SortResultCard = (props: Props) => {
+const SortResultCard = ({submit, data}: Props) => {
 
 const [genreList, setGenreList] = React.useState<number[]>([])
 const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
 
 
-    const {
-        data:genre
-      } = useQuery(['genreList'],TMBD.getGenreList)
-      
-      const {
-        data: Genres,
-        refetch,
-      } = useQuery(['genre'],()=> TMBD.getGenres(genreList))
-      
-      
-      const submit = (e:any) => {
-      console.log("u pressed submit");
-        refetch()
+const {updateGenreList} = useContext(ResultContext)
+     
+    
+
+      useEffect(() => {
+        updateGenreList(genreList)
       }
-
-
+      , [genreList])
 
   return (
     <>
@@ -52,7 +43,7 @@ const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
            >
          <Form
          >
-           {genre?.genres.map((genre: GenreObjects) => (
+           {data?.genres.map((genre: GenreObjects) => (
              <Form.Check
                key={genre.id}
                type="checkbox"
@@ -75,7 +66,7 @@ const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
                }}
              />
            ))}
-           <Button onClick={(e)=>submit(e)} variant="primary">Submit</Button>
+           <Button onClick={submit} variant="primary">Submit</Button>
          </Form>
        </Card>
        
@@ -92,3 +83,4 @@ const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
 }
 
 export default SortResultCard
+

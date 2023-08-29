@@ -1,16 +1,15 @@
-import { Card, CardGroup, Carousel, CarouselItem } from "react-bootstrap"
 import { useQuery } from "@tanstack/react-query"
 import * as TMBD from '../services/TMDBAPI'
-import { useParams, Link, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
-import { Cast } from "../types/Credits.types"
-import Result from "./ResultPage"
+import { useParams, useNavigate } from "react-router-dom"
 import MovieOverview from "../components/MovieOverview"
 import ActorCarousel from "../components/ActorCarousel"
+import MovieCarousel from "../components/MovieCarousel"
+import MovieImgCarousel from "../components/MovieImgCarousel"
 
 type Props = {}
 
 const MoviePage = (props: Props) => {
+
 
   const { id } = useParams()
   const movieId = Number(id)
@@ -22,6 +21,7 @@ const MoviePage = (props: Props) => {
     data: movie,
   } = useQuery(['movie'],()=>TMBD.getMovie(movieId)
   )
+
 
 
 /*  useEffect(() => {
@@ -42,7 +42,24 @@ data={movie}
 <ActorCarousel
 data={movie}
 />
-</>
+
+<MovieCarousel
+data={movie?.similar}
+title={"Similar Movies"}
+navTo={"movie"}
+/>
+<MovieImgCarousel
+data={movie}
+title="Images"
+/>
+
+<MovieImgCarousel
+data2={movie?.videos} 
+title="Videos"
+/>
+
+    </>
+
 
 
 

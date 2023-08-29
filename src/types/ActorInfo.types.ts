@@ -1,5 +1,4 @@
 import { Credits } from "./Credits.types"
-import { Images } from "./MovieInfo.type"
 
 export type ActorInfo = {
     adult: boolean;
@@ -17,5 +16,19 @@ export type ActorInfo = {
     popularity: number;
     profile_path?: string;
     credits: Credits;
-    images: Images;
+    images: ImagesAct;
+}
+
+export type ImagesAct = {
+    profiles: Profile[];
+}
+
+export type Profile = {
+    aspect_ratio: number;
+    height: number;
+    iso_639_1?: string;
+    file_path: string;
+    vote_average: number;
+    vote_count: number;
+    width: number;
 }

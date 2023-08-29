@@ -1,4 +1,5 @@
 import { Credits } from './Credits.types';
+import { MoviesArray } from './MoviesArray.type';
 
 export type MovieInfo = {
     adult: boolean;
@@ -26,7 +27,7 @@ export type MovieInfo = {
     videos: Videos;
     vote_average: number;
     vote_count: number;
-    // similar: Similar[];
+    similar: MoviesArray;
     credits: Credits;
     images: Images;
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { MovieInfo } from '../types/MovieInfo.type'
 import { Cast } from '../types/Credits.types'
@@ -8,9 +7,7 @@ type Props = {
     data:MovieInfo | undefined
 }
 
-
 const ActorsResultCard = ({data}: Props) => {
-    
     
 const navigate =useNavigate()
 

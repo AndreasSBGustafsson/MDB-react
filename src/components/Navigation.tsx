@@ -36,10 +36,10 @@ const Navigation = () =>{
                 <Navbar.Collapse id="basic-navbar-nav">
                      <Nav className="me-auto">
                           <Nav.Link as={NavLink} to="/" >Home</Nav.Link>
-                          <NavDropdown title="Categories" >
-                              <NavDropdown.Item as={NavLink} to="/result/popularmovies" className='dark'>Popular Movies</NavDropdown.Item>
-                              <NavDropdown.Item as={NavLink} to="/result/ontheater" className='dark'>On Theater</NavDropdown.Item>
-                              <NavDropdown.Item as={NavLink} to="/result/toprated" className='dark'>Top Rated</NavDropdown.Item>
+                          <NavDropdown title="Categories">
+                              <NavDropdown.Item as={NavLink} to="/result/popularmovies" >Popular Movies</NavDropdown.Item>
+                              <NavDropdown.Item as={NavLink} to="/result/ontheater" >On Theater</NavDropdown.Item>
+                              <NavDropdown.Item as={NavLink} to="/result/toprated" >Top Rated</NavDropdown.Item>
                               </NavDropdown>
                           <Nav.Link as={NavLink} to="/result" >Genres</Nav.Link>
                      </Nav>

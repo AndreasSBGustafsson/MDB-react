@@ -55,10 +55,11 @@ const Result = ({ data }: Props) => {
                   display: 'flex',
                   width: '100%',
                   flexDirection: 'column',
-                  justifyContent: 'space-between', // Distribute space within the body
+                  justifyContent: 'space-between',
+                   // Distribute space within the body
                  /*  padding: '1rem', // Add padding to separate content */
                 }}
-                  className="overflow-hidden overflow-fade"
+                  className="overflow-hidden overflow-fade rounded-end"
                 >
                   <div style={{ height: '100%' }}>
                     <Card.Title as={Link} to={`/movie/${movie.id}`}>
