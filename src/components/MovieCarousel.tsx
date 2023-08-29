@@ -35,16 +35,12 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
     ,[])
   
     return (
-
-        <>
+    <>
         <h2 onClick={()=>navigate(`/result/${navTitle}`)}>{cardTitle}</h2>
+    
         <Carousel
         indicators={false}
-        style={{
-                      /* backdropFilter:'blur(6px)' */
-        }}
-    
-        
+        interval={null}
         >
             {data?.results.map((movie: Movie) => (
                 
@@ -99,6 +95,7 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
         
             ))}
         </Carousel>
+        
       </>
     )
 }

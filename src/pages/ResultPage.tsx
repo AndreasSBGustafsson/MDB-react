@@ -30,12 +30,12 @@ const handleSortSubmit = () => {
   console.log("u pressed submit");
   setPage(1)
   refetch()
-  
+  setTotalPages(totalPages)
 }
 
 useEffect(() => {
+  setPage(1)
   if (genres) {
-    setPage(genres.page)
     setTotalPages(genres.total_pages)   
   }
 }
@@ -45,6 +45,8 @@ useEffect(() => {
   refetch()
 }
 , [page])
+
+
 
 
 

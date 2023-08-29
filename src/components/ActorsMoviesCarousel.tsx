@@ -18,7 +18,7 @@ const ActorsMoviesCarousel = ({data}: Props) => {
         
     <Carousel
     indicators={false}
-    slide={false}
+    interval={null}
     
     >
         {data?.cast.map((movie  => (

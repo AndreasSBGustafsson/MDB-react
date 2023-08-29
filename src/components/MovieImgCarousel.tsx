@@ -34,7 +34,7 @@ const MoiveImgCarousel = ({data, data2,data3, title}: Props) => {
     <h2>{cardTitle}</h2>
     <Carousel
     indicators={false}
-    slide={false}
+    interval={null}
 
     >
  

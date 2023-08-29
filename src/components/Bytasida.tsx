@@ -19,8 +19,8 @@ const Bytasida = ({page, totalPages, onNextClick,onPreviousClick}: Props) => {
         }}
         >
     <Button onClick={onPreviousClick} disabled={page===1}>Previous</Button>
-    <div>{page}</div>
-    <Button onClick={onNextClick} disabled={page=== totalPages-1||page===totalPages}>Next</Button>
+    <div>{page}/{totalPages}</div>
+    <Button onClick={onNextClick} disabled={page===totalPages}>Next</Button>
     </div>
     )}
     </>

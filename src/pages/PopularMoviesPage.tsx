@@ -33,8 +33,8 @@ console.log("u pressed submit");
 } */
 
 useEffect(() => {
+  setPage(1)
   if (data) {
-    setPage(data.page)
     setTotalPages(data.total_pages)   
   }
 }
