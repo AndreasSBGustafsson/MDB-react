@@ -41,6 +41,10 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
         <h2 onClick={()=>navigate(`/result/${navTitle}`)}>{cardTitle}</h2>
         <Carousel
         indicators={false}
+        style={{
+                      /* backdropFilter:'blur(6px)' */
+        }}
+    
         
         >
             {data?.results.map((movie: Movie) => (
@@ -57,7 +61,9 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                             style={{
                                 background:`url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
                                 backgroundSize:'cover',
+                                backgroundPosition:'center',
                                 height:'100%',
+                                
                                 /* backdropFilter:'blur(6px)' */
                             }}
                             >
@@ -65,7 +71,9 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                             className='d-flex d-column justify-content-center align-items-center'
                             style={{
                                 
+                                // backdropFilter:'blur(2px)',
                                 
+                                height:'100%',
                             }}
                             >
                             <Card.Img 
@@ -75,7 +83,8 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                                 style={{
                                     height:'18rem',
                                     width:'auto',
-                                    backdropFilter: `blur(12px)`
+            
+                                    position: 'relative',
                                 }}
                             />
                                 

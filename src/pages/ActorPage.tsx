@@ -24,9 +24,6 @@ const MoviePage = (props: Props) => {
     <ActorsOverview
     data={actor}
     />
-    <ActorCarousel
-    data={actor}
-    />
     </>
   )
 }

@@ -23,12 +23,7 @@ const HomePage = (props: Props) => {
 
 
   return (
-    <>
-    <div className="App">
-        <h1>App</h1>
-    </div>
-
-    
+    <>    
     <MovieCarousel
     data={popularMovies}
     title={"Popular Movies"}

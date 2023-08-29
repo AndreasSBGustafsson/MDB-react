@@ -26,7 +26,10 @@ const ActorOverview = ({data}: Props) => {
                 <Card.Title>
                     {data?.name}
                 </Card.Title>
-                <Card.Text>
+                <Card.Text
+                style={{
+                    padding:'1rem',
+                }}>
                     {data?.biography}
                 </Card.Text>
             </Card.Body>

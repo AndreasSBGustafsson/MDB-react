@@ -20,12 +20,17 @@ const MovieOverview = ({data}: Props) => {
         style={{
             background:`url(https://image.tmdb.org/t/p/w500${data.backdrop_path})`,
             backgroundSize:'cover',
+            backgroundPosition:'center',
             height:'100%',
+            width:'100%',
             /* backdropFilter:'blur(6px)' */
         }}>
           <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} style={{
             width:'70%',
+            height:'auto',
             objectFit:'cover',
+            padding:'2rem',
+            borderRadius:'3rem',
           }}
           />
           </div>
@@ -42,7 +47,7 @@ const MovieOverview = ({data}: Props) => {
             <Card.Title className=" flex-column, text-center">
               {data.title}
               <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Card.Text>{data.tagline}</Card.Text>
+            <Card.Text>"{data.tagline}"</Card.Text>
           </Card.Body>
             </Card.Title>
               {data.release_date}
