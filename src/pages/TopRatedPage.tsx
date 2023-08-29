@@ -1,35 +1,36 @@
-import React from 'react'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import React, { useEffect } from 'react'
+
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
-import { Link, useNavigate,} from 'react-router-dom'
-import { Card,} from 'react-bootstrap'
-import { GenreObjects } from '../types/Genre.types'
 import ResultCard from '../components/ResultCard'
+import Bytasida from '../components/Bytasida'
 
 
 type Props = {}
 
 const Result = (props: Props) => {
 
-const [genreList, setGenreList] = React.useState<number[]>([])
+  const [page, setPage] = React.useState<number>(1)
+  const [totalPages, setTotalPages] = React.useState<number>(1)
 
-const navigate =useNavigate()
 
 const {
-  data
-} = useQuery(['topRated'],TMBD.getTopRatedMovies)
+  data,
+  refetch
+} = useQuery(['topRated'],()=>TMBD.getTopRatedMovies(page))
 
-/* const {
-  data: gen,
-  refetch,
-} = useQuery(['genre'],()=> TMBD.getGenres(genreList)) */
+useEffect(() => {
+  if (data) {
+    setPage(data.page)
+    setTotalPages(data.total_pages)   
+  }
+}
+, [])
 
-/* const submit = (e:any) => {
-console.log("u pressed submit");
+useEffect(() => {
   refetch()
-} */
+}
+, [page])
 
   return (
     <>
@@ -38,6 +39,12 @@ console.log("u pressed submit");
         {data?.results && data.results.length === 0 && <div>No results</div>}
         <ResultCard
         data={data}
+        />
+        <Bytasida
+        page={page}
+        totalPages={totalPages}
+        onNextClick={() => setPage(page + 1)} // Increment page for Next click
+        onPreviousClick={() => setPage(page - 1)}
         />
         </>
   )

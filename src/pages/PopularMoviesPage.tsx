@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useQuery } from '@tanstack/react-query'
@@ -7,19 +7,20 @@ import { Link, useNavigate,} from 'react-router-dom'
 import { Card,} from 'react-bootstrap'
 import { GenreObjects } from '../types/Genre.types'
 import ResultCard from '../components/ResultCard'
+import Bytasida from '../components/Bytasida'
 
 
 type Props = {}
 
 const Result = (props: Props) => {
 
-const [genreList, setGenreList] = React.useState<number[]>([])
-
-const navigate =useNavigate()
+  const [page, setPage] = React.useState<number>(1)
+  const [totalPages, setTotalPages] = React.useState<number>(1)
 
 const {
-  data
-} = useQuery(['popularMovies'],TMBD.getPopularMovies)
+  data,
+  refetch
+} = useQuery(['popularMovies'],()=>TMBD.getPopularMovies(page))
 
 /* const {
   data: gen,
@@ -31,6 +32,19 @@ console.log("u pressed submit");
   refetch()
 } */
 
+useEffect(() => {
+  if (data) {
+    setPage(data.page)
+    setTotalPages(data.total_pages)   
+  }
+}
+, [])
+
+useEffect(() => {
+  refetch()
+}
+, [page])
+
   return (
       <>
        <div>Popular Movies</div>
@@ -38,6 +52,12 @@ console.log("u pressed submit");
         {data?.results && data.results.length === 0 && <div>No results</div>}
         <ResultCard
         data={data}
+        />
+        <Bytasida
+        page={page}
+        totalPages={totalPages}
+        onNextClick={() => setPage(page + 1)} // Increment page for Next click
+        onPreviousClick={() => setPage(page - 1)} 
         />
         </>
   )

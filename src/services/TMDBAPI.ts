@@ -24,16 +24,16 @@ const get = async <T>(endpoint: string) => {
     return response.data
 }
 
-export const getPopularMovies =() => {
-    return get<MoviesArray>(`/movie/popular`)
+export const getPopularMovies =(page:number) => {
+    return get<MoviesArray>(`/movie/popular?&page=${page}`)
 }
 
-export const getOnTheaterMovie = () => {
-    return get<MoviesArray>(`/movie/now_playing?language=sv-SV&region=SE`)
+export const getOnTheaterMovie = (page:number) => {
+    return get<MoviesArray>(`/movie/now_playing?language=sv-SV&region=SE&page=${page}`)
 }
 
-export const getTopRatedMovies = () => {
-    return get<MoviesArray>(`/movie/top_rated`)
+export const getTopRatedMovies = (page:number) => {
+    return get<MoviesArray>(`/movie/top_rated?&page=${page}`)
 }
 
 

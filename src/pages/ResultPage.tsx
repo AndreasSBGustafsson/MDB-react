@@ -35,10 +35,8 @@ const handleSortSubmit = () => {
 
 useEffect(() => {
   if (genres) {
-    console.log("valda genres", genres);
     setPage(genres.page)
-    setTotalPages(genres.total_pages)
-    
+    setTotalPages(genres.total_pages)   
   }
 }
 , [])
