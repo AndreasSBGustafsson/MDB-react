@@ -1,11 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import { Card,} from 'react-bootstrap'
 import { GenreList, GenreObjects } from '../types/Genre.types'
-import { ResultContext, ResultUpdateContext } from '../context/Context'
-import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query'
-import { MoviesArray } from '../types/MoviesArray.type'
+import { ResultContext} from '../context/Context'
 
 type Props = {
   data: GenreList| undefined
@@ -14,18 +11,33 @@ type Props = {
 
 const SortResultCard = ({submit, data}: Props) => {
 
-const [genreList, setGenreList] = React.useState<number[]>([])
+const currentGenreList = sessionStorage.getItem('genreList');
+const initialGenreList = currentGenreList ? JSON.parse(currentGenreList) : [];
+const [genreList, setGenreList] = React.useState<number[]>(initialGenreList)
 const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
-
 
 const {updateGenreList} = useContext(ResultContext)
      
-    
+useEffect(() => {
+  const savedSelectedGenres = sessionStorage.getItem('selectedGenres');
+  const savedGenreList = sessionStorage.getItem('genreList');
+  if (savedSelectedGenres) {
+    setSelectedGenres(JSON.parse(savedSelectedGenres));
+  }
+  if (savedGenreList) {
+    setGenreList(JSON.parse(savedGenreList));
+  }
+}, []);
 
-      useEffect(() => {
-        updateGenreList(genreList)
-      }
-      , [genreList])
+useEffect(() => {
+  // Save selected genres and genreList to session storage when they change
+  sessionStorage.setItem('selectedGenres', JSON.stringify(selectedGenres));
+  sessionStorage.setItem('genreList', JSON.stringify(genreList));
+  // Update genreList in the context
+  updateGenreList(genreList);
+  
+}, [selectedGenres, genreList, updateGenreList]);
+
 
   return (
     <>
@@ -44,7 +56,7 @@ const {updateGenreList} = useContext(ResultContext)
          <Form
          >
            {data?.genres.map((genre: GenreObjects) => (
-             <Form.Check
+             <Form.Check onClick={submit}
                key={genre.id}
                type="checkbox"
                label={genre.name}
@@ -66,11 +78,10 @@ const {updateGenreList} = useContext(ResultContext)
                }}
              />
            ))}
-           <Button onClick={submit} variant="primary">Submit</Button>
+           {/* <Button onClick={submit} variant="primary">Submit</Button> */}
          </Form>
        </Card>
        
-        
          <div style={{
             color:'white',
             fontSize:'1.2rem',
@@ -83,4 +94,3 @@ const {updateGenreList} = useContext(ResultContext)
 }
 
 export default SortResultCard
-

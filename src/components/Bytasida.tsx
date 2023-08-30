@@ -11,7 +11,7 @@ const Bytasida = ({page, totalPages, onNextClick,onPreviousClick}: Props) => {
   return (
 
     <>
-    {totalPages>1 && (
+  
     <div style={{
         display:'flex',
         justifyContent:'space-between',
@@ -22,7 +22,7 @@ const Bytasida = ({page, totalPages, onNextClick,onPreviousClick}: Props) => {
     <div>{page}/{totalPages}</div>
     <Button onClick={onNextClick} disabled={page===totalPages}>Next</Button>
     </div>
-    )}
+  
     </>
   )
 }

@@ -24,15 +24,15 @@ const get = async <T>(endpoint: string) => {
     return response.data
 }
 
-export const getPopularMovies =(page:number) => {
+export const getPopularMovies =(page=1) => {
     return get<MoviesArray>(`/movie/popular?&page=${page}`)
 }
 
-export const getOnTheaterMovie = (page:number) => {
+export const getOnTheaterMovie = (page=1) => {
     return get<MoviesArray>(`/movie/now_playing?language=sv-SV&region=SE&page=${page}`)
 }
 
-export const getTopRatedMovies = (page:number) => {
+export const getTopRatedMovies = (page=1) => {
     return get<MoviesArray>(`/movie/top_rated?&page=${page}`)
 }
 
@@ -52,7 +52,6 @@ export const getGenreList = () => {
 }
 
 export const getGenres = (data:number[], page:number) => {
-    console.log("getGenres")
     
     return get<MoviesArray>(`/discover/movie?language=sv-SV&region=SE&with_genres=${data.map((genre) => genre).join(",")}&desc_by=popularity&page=${page}`)
 }
