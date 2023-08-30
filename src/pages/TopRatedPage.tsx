@@ -1,54 +1,60 @@
 import React, { useEffect } from 'react'
-
 import { useQuery } from '@tanstack/react-query'
 import * as TMBD from '../services/TMDBAPI'
 import ResultCard from '../components/ResultCard'
-import Bytasida from '../components/Bytasida'
+import Bytasida from '../components/Partial/Bytasida'
 
 
-type Props = {}
+const Result = () => {
 
-const Result = (props: Props) => {
+  const currentPage = sessionStorage.getItem('currentPageTopRated')
+  const initialPage = currentPage ? parseInt(currentPage) : 1
+  const [page, setPage] = React.useState<number>(initialPage)
 
-  const [page, setPage] = React.useState<number>(1)
-  const [totalPages, setTotalPages] = React.useState<number>(1)
-
-
-const {
-  data,
-  refetch
-} = useQuery(['topRated'],()=>TMBD.getTopRatedMovies(page))
-
-useEffect(() => {
-  setPage(1)
-  if (data) {
-    setTotalPages(data.total_pages)   
+  const handleNextClick = () => {
+    const pageToSave = page + 1
+    sessionStorage.setItem('currentPageTopRated', pageToSave.toString());
+    setPage(page + 1)
   }
-}
-, [])
+  
+  const handlePreviousClick = () => {
+    const pageToSave = page - 1
+    sessionStorage.setItem('currentPageTopRated', pageToSave.toString());
+    setPage(page - 1)
+  }
 
-useEffect(() => {
-  refetch()
-}
-, [page])
+  const {
+    data,
+    refetch,
+    isFetching: isLoading,
+    isError: error,
+  } = useQuery(['popularMovies'],()=>TMBD.getTopRatedMovies(page))
+
+  const totalPages = data?.total_pages || 1
+
+  useEffect(() => {
+    refetch()
+  }
+  , [page, refetch])
 
   return (
-    <>
-       <div>Top Rated</div>
-        {!data && <div>Loading...</div>}
+      <>
+       <div onClick={()=>setPage(1)}>Top Rated</div>
         {data?.results && data.results.length === 0 && <div>No results</div>}
         <ResultCard
         data={data}
+        loading={isLoading}
+        error={error}
         />
         <Bytasida
         page={page}
         totalPages={totalPages}
-        onNextClick={() => setPage(page + 1)} // Increment page for Next click
-        onPreviousClick={() => setPage(page - 1)}
+        loading={isLoading}
+        onNextClick={handleNextClick}
+        onPreviousClick={handlePreviousClick}
         />
         </>
   )
 }
-
 
 export default Result

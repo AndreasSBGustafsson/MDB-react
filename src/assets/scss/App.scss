@@ -1,6 +1,5 @@
 @import "bootstrap/scss/bootstrap";
 
-
 .bg {
     background-color: #e9a943;
     background: url(./BG-AMDB.png)
@@ -12,7 +11,6 @@
     height: 100vh;
     width: 100vw;
     overflow: scroll;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     color: white;
@@ -40,4 +38,16 @@
     pointer-events: none;
     z-index: 1;
   }
+
+  .movieCardTitle {
+    background: rgba(0,0,0,1);
+background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,0,1)), color-stop(100%, rgba(255,255,255,0)));
+background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff', GradientType=1 );
+  }
+
   

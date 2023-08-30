@@ -1,92 +1,109 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ResultCard from '../components/ResultCard'
 import SortResultCard from '../components/SortResultCard'
-import Bytasida from '../components/Bytasida'
+import Bytasida from '../components/Partial/Bytasida'
 import useGenreList from '../hooks/useGenreList'
 import useGenres from '../hooks/useGenres'
 import { ResultContext } from '../context/Context'
+import LoadingDots from '../components/Spinners/LoadingDots'
 
 const Result = () => {
+  const { genreListContext } = useContext(ResultContext);
 
   // Get the current page from sessionStorage
-  const currentPage = sessionStorage.getItem('currentPage');
-  const initialPage = currentPage ? parseInt(currentPage) : 1;
-  const [page, setPage] = React.useState<number>(initialPage);
-  const [totalPages, setTotalPages] = React.useState<number>(1);
+  const storedPage = sessionStorage.getItem('currentPage')
+  const initialPage = storedPage ? parseInt(storedPage, 10) :1
 
-const {genreListContext} = useContext(ResultContext)
+  // Initialize state using the stored current page
+  const [page, setPage] = useState<number>(initialPage)
+  const [totalPages, setTotalPages] = useState<number>(0)
 
-// Save the current page to sessionStorage when changing pages
-const handleNextClick = () => {
-  const pageToSave = page + 1;
-  sessionStorage.setItem('currentPage', pageToSave.toString());
-  setPage(page + 1);
-};
+  // Fetch genre list
+  const { 
+    data: genreList,
+    isLoading: isLoadingGenreList,
+    isError: errorGenreList 
+  } = useGenreList()
 
-const handlePreviousClick = () => {
-  const pageToSave = page - 1;
-  sessionStorage.setItem('currentPage', pageToSave.toString());
-  setPage(page - 1);
-};
+  // Fetch genres
+  const {
+    data: genres,
+    isFetching: isLoadingGenres,
+    isError: errorGenres,
+    refetch,
+  } = useGenres(genreListContext, page)
 
-const {
-  data: gen,
-} = useGenreList(true)
-
-const {
-  data: genres,
-  refetch,
-} = useGenres(genreListContext, page)
-
-//fetch genres on page button click
-useEffect(() => {
-  refetch(); // Fetch movies when genreList or page changes
-  if (genres)
-  setTotalPages(genres?.total_pages)
-}, [page, genreListContext]);
-
-
-//update total pages
-useEffect(() => {
-  if (genres) {
-    setTotalPages(genres.total_pages) 
-    refetch() 
+  const handleSortSubmit = () => {
+    setPage(1)
+    sessionStorage.setItem('currentPage', '1')
   }
-}
-, [genres])
 
+  const handleNextClick = () => {
+    const nextPage = page + 1;
+    sessionStorage.setItem('currentPage', nextPage.toString())
+    setPage(nextPage)
+  }
 
-const handleSortSubmit = () => {
-  console.log("u pressed submit");
-  setPage(1)
-  const pageToSave = 1;
-  sessionStorage.setItem('currentPage', pageToSave.toString());
+  const handlePreviousClick = () => {
+    const prevPage = Math.max(1, page - 1);
+    sessionStorage.setItem('currentPage', prevPage.toString())
+    setPage(prevPage)
+  }
 
-}
+  useEffect(() => {
+    refetch()
+    if (genres) 
+      setTotalPages(genres.total_pages)
+  }, [genreListContext, page, genres])
 
-//fetch genres on page load
-useEffect(() => {
-  setPage(currentPage ? parseInt(currentPage) : 1)
-},[])
+  useEffect(() => {
+    setPage(1)
+    if (genres) 
+      setTotalPages(genres.total_pages)
+      refetch()
+  }, [genreListContext])
+
+  useEffect(() => {
+    if (genres) 
+      setTotalPages(genres.total_pages)
+      setPage(initialPage)
+  }, [genres])
+
+  useEffect(() => {
+
+    refetch()
+  }, [page])
 
   return (
     <>
-    <SortResultCard
-    submit={handleSortSubmit}
-    data={gen}
-    />
-    <ResultCard
-    data={genres}
-    />
-    <Bytasida
-    page={page}
-    totalPages={totalPages} // Pass the total number of pages as needed
-    onNextClick={handleNextClick } // Increment page for Next click
-    onPreviousClick={handlePreviousClick} // Decrement page for Previous click
-    />
+      {isLoadingGenreList && isLoadingGenres ? <LoadingDots /> :
+      <>
+      {errorGenreList || errorGenres ? <div>Something went wrong...</div>:
+      <>
+      <SortResultCard
+      submit={handleSortSubmit}
+      data={genreList}
+      error={errorGenreList} />
+
+      <ResultCard
+      data={genres}
+      error={errorGenres}
+      loading={isLoadingGenres}
+      />
+
+      <Bytasida
+        page={page}
+        totalPages={totalPages}
+        loading={isLoadingGenres}
+        onNextClick={handleNextClick}
+        onPreviousClick={handlePreviousClick}
+      />
+      </>
+      }
+      </>
+      }
     </>
   )
 }
-
 
 export default Result

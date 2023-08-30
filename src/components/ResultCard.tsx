@@ -1,35 +1,39 @@
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate,} from 'react-router-dom'
-import { Card,} from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { MoviesArray } from '../types/MoviesArray.type'
+import LoadingDots from './Spinners/LoadingDots'
 
 
 type Props = {
     data:MoviesArray|undefined
-    
+    error:boolean
+    loading:boolean
 }
 
-const Result = ({ data }: Props) => {
+const Result = ({ data,loading, error }: Props) => {
   const navigate = useNavigate();
+  
 
   return (
     <>
-      {!data && <div>Loading...</div>}
-      {data && data.results.length === 0 && <div>No results</div>}
+      {error && <div>Something went wrong ...</div>}
+      {loading &&(<><LoadingDots/></>)}
+      {data && data.results.length === 0 &&<div>No results</div>}
+
+     
 
       {data && (
-        <>
+        <>        
           {data.results.map((movie: any, index) => (
             <Card
               key={index}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                // margin: '1rem',
-            
                 marginTop: '1rem',
-                  marginBottom: '1rem', // Add some padding around the image
-                display: 'flex', // Use flexbox for layout
-                flexDirection: 'row', // Arrange contents in a row
+                  marginBottom: '1rem', 
+                display: 'flex', 
+                flexDirection: 'row', 
               }}
             >
               <div
@@ -37,34 +41,36 @@ const Result = ({ data }: Props) => {
                 style={{
                   height: '12rem',
                   width: '100%',
-                  flexDirection: 'row', // Arrange the contents in a row
+                  flexDirection: 'row',
                   
                 }}
               >
                 <Card.Img
-                  onClick={() => navigate(`/movie/${movie.id}`)}
+                  onClick={() =>{!loading&&navigate(`/movie/${movie.id}`)}}
                   variant="bottom"
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   style={{ height: 'auto', width: 'auto' }}
                   className="rounded-start"
                 />
+
                 <Card.Body
                 style={{
                   backgroundColor: 'white',
-                  flex: '1', // Allow content to expand to fill height
+                  flex: '1', 
                   display: 'flex',
                   width: '100%',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                   // Distribute space within the body
-                 /*  padding: '1rem', // Add padding to separate content */
                 }}
                   className="overflow-hidden overflow-fade rounded-end"
                 >
+                  
                   <div style={{ height: '100%' }}>
-                    <Card.Title as={Link} to={`/movie/${movie.id}`}>
+                    <Card.Title 
+                    onClick={() =>{!loading&&navigate(`/movie/${movie.id}`)}}>
                       {movie.title}
                     </Card.Title>
+
                     <Card.Text
                         style={{
                           fontSize:'0.8rem',
@@ -73,8 +79,9 @@ const Result = ({ data }: Props) => {
                         
                         >
                         {movie.overview}
-                        </Card.Text>
-                  <Link to={`/movie/${movie.id}`}>
+                    </Card.Text>
+
+                    <Link to={`/movie/${movie.id}`}>
                     <Button
                        style={{
                         backgroundColor: 'grey',
@@ -87,6 +94,7 @@ const Result = ({ data }: Props) => {
                       }}
                       className=""
                       variant=""
+                      disabled={loading}
                     >
                       Se mer
                     </Button>
@@ -99,7 +107,7 @@ const Result = ({ data }: Props) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
 export default Result;

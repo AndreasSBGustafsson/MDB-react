@@ -2,6 +2,7 @@ import { Button, Card } from 'react-bootstrap'
 import { MovieInfo } from '../types/MovieInfo.type'
 import { Cast } from '../types/Credits.types'
 import { Link, useNavigate } from 'react-router-dom'
+import LoadingDots from './Spinners/LoadingDots'
 
 type Props = {
     data:MovieInfo | undefined
@@ -14,54 +15,69 @@ const navigate =useNavigate()
   return (
     <>
     <div>Actors in {data?.title} </div>
-
-     {!data && <div>Loading...</div>}
+     {!data && <LoadingDots/>}
      {data?.credits && data.credits.cast.length === 0 && <div>No results</div>}
-
      {data?.credits.cast && (
       <>
         {data.credits.cast.map((cast: Cast, index) => (
-          <Card
-            key={index}
-          >
-            <div className='d-flex'
+        <Card
+          key={index}
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            marginTop: '1rem',
+            marginBottom: '1rem',
+            display: 'flex', 
+            flexDirection: 'row',
+          }}>
+          <div className='d-flex'
+            style={{
+              height: '12rem',
+              width: '100%',
+              flexDirection: 'row',
+            }}>
+            <Card.Img onClick={()=>navigate(`/actor/${cast.id}`)}variant="bottom"
+              src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+              style={{height:'au', width:'auto'}}
+              className="rounded-start"/>
+            <Card.Body
+              style={{
+                backgroundColor: 'white',
+                flex: '1',
+                display: 'flex',
+                width: '100%',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+              className="overflow-hidden rounded-end"
             >
-              
-              <Card.Img onClick={()=>navigate(`/actor/${cast.id}`)}variant="bottom" src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`} style={{height:'10rem', width:'auto'}}/>
-              
-                <Card.Body /* style={{flexDirection:'column'}} */
-                 style={{
-                  wordBreak: 'break-word'
-                }}>
-                  <Card.Title as={Link} to={`/actor/${cast.id}`}>{cast.name}</Card.Title>
-                  <Card.Text style={{
-                    fontSize:'0.8rem',
-                    }}
-                    >
-     
-                    <Card.Text>
-                    {cast.character}
-                    </Card.Text>
-     
-                    <Card.Text>
-                    {cast.known_for_department}
-                    </Card.Text>
-     
-                    <Card.Text>
-                    {cast.original_name}
-                    </Card.Text>
-     
-                    </Card.Text>
-                  <Link to={`/actor/${cast.id}`}>
-                    <Button variant="primary" >Se mer</Button>
-                  </Link>
-                </Card.Body>
+              <div style={{ height: '100%' }}>
+                <Card.Title as={Link} to={`/actor/${cast.id}`}>{cast.name}</Card.Title>
+                <Card.Text 
+                  style={{
+                  fontSize:'0.8rem',
+                  height:'auto',
+                  }}>
+                <Card.Text>
+                  {cast.character}
+                </Card.Text>
+                <Card.Text>
+                  {cast.known_for_department}
+                </Card.Text>
+                <Card.Text>
+                  {cast.original_name}
+                </Card.Text>
+                </Card.Text>
+                <Link to={`/actor/${cast.id}`}>
+                  <Button variant="primary" >Se mer</Button>
+                </Link>
               </div>
-            </Card>
-          ))}
-      </>
-     )}
-     </> 
+            </Card.Body>
+          </div>
+        </Card>
+      ))}
+    </>
+    )}
+    </> 
   )
 }
 

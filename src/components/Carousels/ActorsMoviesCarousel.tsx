@@ -1,49 +1,22 @@
-import { useEffect, useState } from 'react'
-import Card from 'react-bootstrap/Card'
-import CardGroup from 'react-bootstrap/CardGroup'
-import {Link,useNavigate} from 'react-router-dom'
-
-import {Movie, MoviesArray } from '../types/MoviesArray.type'
-import { Carousel } from 'react-bootstrap'
-
-
+import React from 'react'
+import { Card, CardGroup, Carousel } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { Cast, Credits } from '../../types/Credits.types'
 
 type Props = {
-    data:MoviesArray|undefined
-    title:string
-    navTo:string
+    data:Credits|undefined
 }
 
-const MovieCarousel = ({data, title, navTo}: Props) => {
-    console.log("PopularMoviesCard",data);
-    
-    
-    const navigate = useNavigate()
-    
-    // const {
-    // data: popularMovies,
-    // } = useQuery(['popular'],TMBD.getPopularMovies)
+const ActorsMoviesCarousel = ({data}: Props) => {
 
-    const [cardTitle, setCardTitle] = useState("")
-    const [navTitle, setNavTitle] = useState("")
-    
-    useEffect(() => {
-        setCardTitle(title)
-        setNavTitle(navTo)
-        
-    }
-    ,[])
-  
-    return (
-    <>
-        <h2 onClick={()=>navigate(`/result/${navTitle}`)}>{cardTitle}</h2>
-    
+  return (
+        <>
+        <h2>Played in:</h2>    
         <Carousel
-        indicators={false}
-        interval={null}
+            indicators={false}
+            interval={null}
         >
-            {data?.results.map((movie: Movie) => (
-                
+            {data?.cast.map((movie  => (
                 <Carousel.Item key={movie.id} /* style={{ width: '18rem' }} */>
                     <CardGroup /* className='justify-content-center align-items-center' */>
                         <Card as={Link} to={`/movie/${movie.id}`} key={movie.id}>
@@ -51,25 +24,17 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                                 d-flex
                                 flex-column
                                 justify-content-center 
-                                align-items-center
-                                '
+                                align-items-center'
                             style={{
                                 background:`url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
                                 backgroundSize:'cover',
                                 backgroundPosition:'center',
                                 height:'100%',
-                                
-                                /* backdropFilter:'blur(6px)' */
                             }}
                             >
                             <div 
-                            className='d-flex d-column justify-content-center align-items-center'
-                            style={{
-                                
-                                // backdropFilter:'blur(2px)',
-                                
-                                height:'100%',
-                            }}
+                                className='d-flex d-column justify-content-center align-items-center'
+                                style={{height:'100%'}}
                             >
                             <Card.Img 
                                 className='justify-content-center align-items-center'
@@ -78,13 +43,11 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                                 style={{
                                     height:'18rem',
                                     width:'auto',
-            
                                     position: 'relative',
-                                }}
-                            />
+                                }}/>
                                 
                             <Card.Body
-                            className='d-column'>
+                            className='d-column movieCardTitle'>
                                 <Card.Title style={{color:'white'}}>{movie.title}</Card.Title>
                             </Card.Body>
                             </div>
@@ -92,14 +55,10 @@ const MovieCarousel = ({data, title, navTo}: Props) => {
                         </Card>
                     </CardGroup>
                 </Carousel.Item>
-        
-            ))}
+            )))}
         </Carousel>
-        
-      </>
-    )
+    </>
+  )
 }
 
-
-
-export default MovieCarousel
+export default ActorsMoviesCarousel

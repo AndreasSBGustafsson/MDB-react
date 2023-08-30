@@ -1,12 +1,9 @@
 import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {NavLink, Link} from 'react-router-dom'
 import logo from '../assets/scss/logo.png'
-
-
 
 const Navigation = () =>{
     return (
@@ -43,10 +40,6 @@ const Navigation = () =>{
                               </NavDropdown>
                           <Nav.Link as={NavLink} to="/result" >Genres</Nav.Link>
                      </Nav>
-                     <Form>
-                          <Form.Control type="text" placeholder="Search" className="mr-sm-2" />
-                          {/* <Button variant="outline-success">Search</Button> */}
-                     </Form>
                 </Navbar.Collapse>
               </Container>
             </Navbar>

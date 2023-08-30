@@ -7,54 +7,46 @@ import { ResultContext} from '../context/Context'
 type Props = {
   data: GenreList| undefined
   submit: () => void
+  error: boolean
 }
 
-const SortResultCard = ({submit, data}: Props) => {
+const SortResultCard = ({submit, data, error}: Props) => {
 
-const currentGenreList = sessionStorage.getItem('genreList');
-const initialGenreList = currentGenreList ? JSON.parse(currentGenreList) : [];
-const [genreList, setGenreList] = React.useState<number[]>(initialGenreList)
-const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
+  const currentGenreList = sessionStorage.getItem('genreList')
+  const initialGenreList = currentGenreList ? JSON.parse(currentGenreList) : []
+  const [genreList, setGenreList] = React.useState<number[]>(initialGenreList)
+  const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
 
-const {updateGenreList} = useContext(ResultContext)
-     
-useEffect(() => {
-  const savedSelectedGenres = sessionStorage.getItem('selectedGenres');
-  const savedGenreList = sessionStorage.getItem('genreList');
-  if (savedSelectedGenres) {
-    setSelectedGenres(JSON.parse(savedSelectedGenres));
-  }
-  if (savedGenreList) {
-    setGenreList(JSON.parse(savedGenreList));
-  }
-}, []);
+  const {updateGenreList} = useContext(ResultContext)
+      
+  useEffect(() => {
+    const savedSelectedGenres = sessionStorage.getItem('selectedGenres')
+    const savedGenreList = sessionStorage.getItem('genreList')
+    if (savedSelectedGenres) {
+      setSelectedGenres(JSON.parse(savedSelectedGenres))
+    }
+    if (savedGenreList) {
+      setGenreList(JSON.parse(savedGenreList))
+    }
+  }, [])
 
-useEffect(() => {
-  // Save selected genres and genreList to session storage when they change
-  sessionStorage.setItem('selectedGenres', JSON.stringify(selectedGenres));
-  sessionStorage.setItem('genreList', JSON.stringify(genreList));
-  // Update genreList in the context
-  updateGenreList(genreList);
-  
-}, [selectedGenres, genreList, updateGenreList]);
+  useEffect(() => {
+    // Save selected genres and genreList to session storage when they change
+    sessionStorage.setItem('selectedGenres', JSON.stringify(selectedGenres))
+    sessionStorage.setItem('genreList', JSON.stringify(genreList))
+    // Update genreList in the context
+    updateGenreList(genreList)
+    
+  }, [selectedGenres, genreList, updateGenreList])
 
 
   return (
     <>
-     {/* farligt döpt kod nedan! */}
-     <div
-     style={{
-       color:'white',
-       }}
-     >Genre</div>
-       <Card
-       className='bg-dark'
-         style={{
-           color:'white',
-         }}
-           >
-         <Form
-         >
+    {error && <div>Something went wrong...</div>}
+    
+      <div style={{color:'white',}}>Genre</div>
+       <Card className='bg-dark'style={{color:'white',}}>
+         <Form>
            {data?.genres.map((genre: GenreObjects) => (
              <Form.Check onClick={submit}
                key={genre.id}
@@ -78,10 +70,8 @@ useEffect(() => {
                }}
              />
            ))}
-           {/* <Button onClick={submit} variant="primary">Submit</Button> */}
          </Form>
        </Card>
-       
          <div style={{
             color:'white',
             fontSize:'1.2rem',

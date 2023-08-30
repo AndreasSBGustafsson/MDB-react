@@ -1,4 +1,4 @@
-import React, { ReactElement, createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect } from "react";
 
 export type ResultContextType = {
     updateGenreList: (genreList:number[]) => void;

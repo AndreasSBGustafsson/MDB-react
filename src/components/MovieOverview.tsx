@@ -1,13 +1,17 @@
-import React from 'react'
 import { MovieInfo } from '../types/MovieInfo.type'
 import { Card } from 'react-bootstrap'
+import LoadingDots from './Spinners/LoadingDots'
 
 type Props = {
     data:MovieInfo|undefined
+    loading:boolean
 }
 
-const MovieOverview = ({data}: Props) => {
+const MovieOverview = ({data,loading}: Props) => {
+
   return (
+    <>
+    {loading ? <LoadingDots/> : 
     <>
     {data?.credits &&(
         <>
@@ -17,89 +21,86 @@ const MovieOverview = ({data}: Props) => {
             flex-column
             align-items-center
             '
-        style={{
-            background:`url(https://image.tmdb.org/t/p/w500${data.backdrop_path})`,
-            backgroundSize:'cover',
-            backgroundPosition:'center',
-            height:'100%',
-            width:'100%',
-            /* backdropFilter:'blur(6px)' */
-        }}>
-          <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} style={{
-            width:'70%',
-            height:'auto',
-            objectFit:'cover',
-            padding:'2rem',
-            borderRadius:'3rem',
-          }}
-          />
+          style={{
+              background:`url(https://image.tmdb.org/t/p/w500${data.backdrop_path})`,
+              backgroundSize:'cover',
+              backgroundPosition:'center',
+              height:'100%',
+              width:'100%',
+          }}>
+            <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} style={{
+              width:'30%',
+              minWidth:'200px',
+              height:'auto',
+              objectFit:'cover',
+              padding:'2rem',
+              borderRadius:'3rem',
+            }}
+            />
           </div>
-          <Card.Body style={{
-            // display: 'flex',
-            justifyContent: 'space-between',
-            alignContent: 'center',
-          }}
-          className="
-            d-flex
-            flex-column
-            align-items-center"
-          >
+
+          <Card.Body 
+            style={{
+              justifyContent: 'space-between',
+              alignContent: 'center',
+            }}
+            className="
+              d-flex
+              flex-column
+              align-items-center"
+            >
+
             <Card.Title className=" flex-column, text-center">
               {data.title}
-              <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Card.Text>"{data.tagline}"</Card.Text>
-          </Card.Body>
+                <Card.Text style={{font:'italic'}}>{data.tagline}</Card.Text>
             </Card.Title>
+
               {data.release_date}
-              <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
-                className="square border">
-                <Card.Text>Genres: {data.genres.map((genre) => genre.name).join(', ')}</Card.Text>
-              </Card.Body>
-            <Card.Text className="me-3">
+              
+                <Card.Text>{data.genres.map((genre) => genre.name).join(' ')}</Card.Text>
+             
+                {data.overview!==''&&(            
+                <Card.Text className="me-3">
               {data.overview}
-            </Card.Text>
-          </Card.Body>
-          <Card.Body
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-            >
-            </Card.Body>
-        </Card>
-  
-        <Card>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                </Card.Text>
+                )}
+          
+            {data.vote_average!==0&&(
             <Card.Text>Rating: {data.vote_average}</Card.Text>
-          </Card.Body>
-          <Card.Body>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            )}
+          
+            {data.spoken_languages.length!==0&&(
             <Card.Text>Spoken Languages: {data.spoken_languages.map((language) => language.name).join(', ')}</Card.Text>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            )}
+          
+            {data.runtime!==0&&(
             <Card.Text>Runtime: {data.runtime}</Card.Text>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            )}
+          
+            {data.budget!==0&&(
             <Card.Text>Budget: {data.budget}</Card.Text>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            )}
+
+            {data.revenue!==0&&(
             <Card.Text>Revenue: {data.revenue}</Card.Text>
+            )}
+            
+            {data.popularity!==0&&(
+            <Card.Text>Popularity: {data.popularity}</Card.Text>
+            )}
+            
+            {data.original_language!==''&&(
+            <Card.Text>Original Language: {data.original_language}</Card.Text>
+            )}
+
           </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Card.Text>Popularity: {data.popularity}</Card.Text>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Card.Text>Original Language: {data.original_language}</Card.Text>
-          </Card.Body>
-          <Card.Body style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Card.Text>Original Title: {data.original_title}</Card.Text>
-          </Card.Body>
+         
         </Card>
-  </>
-  )}
-  </>
+        </>
+        )}
+        </>
+        }
+        </>
   )
 }
 

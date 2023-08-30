@@ -1,16 +1,14 @@
 import { Card } from "react-bootstrap"
 import { useQuery } from "@tanstack/react-query"
 import * as TMBD from '../services/TMDBAPI'
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import ActorsOverview from "../components/ActorsOverview"
-import ActorCarousel from "../components/ActorCarousel"
-import MovieCarousel from "../components/MovieCarousel"
-import ActorsMoviesCarousel from "../components/ActorsMoviesCarousel"
-import MoiveImgCarousel from "../components/MovieImgCarousel"
+import ActorsMoviesCarousel from "../components/Carousels/ActorsMoviesCarousel"
+import MoiveImgCarousel from "../components/Carousels/MovieImgCarousel"
+import LoadingDots from "../components/Spinners/LoadingDots"
 
-type Props = {}
 
-const MoviePage = (props: Props) => {
+const MoviePage = () => {
 
   const { id } = useParams()
   const actorId = Number(id)
@@ -19,22 +17,38 @@ const MoviePage = (props: Props) => {
 
   const {
     data: actor,
+    isFetching: isLoading,
+    isError: error,
   } = useQuery(['actor'],()=>TMBD.getActor(actorId))
 
 
   return (
-    <>
-    <ActorsOverview
-    data={actor}
-    />
-    <ActorsMoviesCarousel  
-    data={actor?.credits}
-    />
-    <MoiveImgCarousel
-    data3={actor}
-    title="Images"
-    />
-    </>
+      <>
+      {isLoading ? <LoadingDots />:
+      <>
+      {error ? <div>Something Went Wrong</div>:
+      <>
+      <ActorsOverview
+      data={actor}
+      error={error}
+      loading={isLoading}
+      />
+
+      <ActorsMoviesCarousel  
+      data={actor?.credits}
+      />
+
+      <MoiveImgCarousel
+      data3={actor}
+      title="Images"
+      loading={isLoading}
+      error={error}
+      />
+      </>
+    }
+      </>
+    }
+      </>
   )
 }
 
