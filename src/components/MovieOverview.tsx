@@ -59,6 +59,7 @@ const MovieOverview = ({data,loading}: Props) => {
               
                 <Card.Text>{data.genres.map((genre) => genre.name).join(' ')}</Card.Text>
              
+             <div style={{justifyContent:'start'}}>
                 {data.overview!==''&&(            
                 <Card.Text className="me-3">
               {data.overview}
@@ -92,7 +93,7 @@ const MovieOverview = ({data,loading}: Props) => {
             {data.original_language!==''&&(
             <Card.Text>Original Language: {data.original_language}</Card.Text>
             )}
-
+            </div>
           </Card.Body>
          
         </Card>

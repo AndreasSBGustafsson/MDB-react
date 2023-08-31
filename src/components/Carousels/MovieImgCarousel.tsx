@@ -38,6 +38,7 @@ const MoiveImgCarousel = ({data, data2,data3, title, loading, error}: Props) => 
             <h2>{cardTitle}</h2>
               <Carousel
               indicators={false}
+              interval={null}
               >  
                 {data?.images.backdrops.map((img:Backdrop, index) => (
                     <Carousel.Item key={index}>
