@@ -7,13 +7,6 @@ type Props = {data:LastVisited|undefined, title:string, loading?:boolean, error?
 
 const LastVistedCar = ({data, title }:Props) => {
 
-   //This shows data so there's data to be displayed
-    data?.map((movie: MovieInfo) => (console.log(movie.poster_path)))
-
-    
-    
-
-
   return (
     <>
     {data?.length === 0 ? <h2>Could Not Get Data ....</h2>:

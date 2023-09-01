@@ -40,9 +40,18 @@ const PopularMovies = () => {
 
   return (
       <>
-      {data &&<div style={{display:'flex', justifyContent:'space-between'}}onClick={()=>setPage(1)}>Popular Movies {isLoading && <LoadingDots/>}</div>}
-        {data?.results && data.results.length === 0 && <div>No results</div>}
+      {data &&
+        <div style={{
+          display:'flex', 
+          justifyContent:'space-between'
+          }}
+          onClick={()=>setPage(1)}>
+            Popular Movies 
+            {isLoading && 
+            <LoadingDots/>}
+        </div>}
 
+        {data?.results && data.results.length === 0 && <div>No results</div>}
           <ResultCard
               data={data}
               loading={isLoading}
@@ -54,7 +63,7 @@ const PopularMovies = () => {
               totalPages={totalPages}
               loading={isLoading}
               error={error}
-              onNextClick={handleNextClick} // Increment page for Next click
+              onNextClick={handleNextClick} 
               onPreviousClick={handlePreviousClick} 
           />
       </>

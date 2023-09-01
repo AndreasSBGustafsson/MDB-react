@@ -42,7 +42,6 @@ const Result = () => {
     sessionStorage.setItem('currentPage', '1')  
   }
 
-  
   const handleNextClick = () => {
     const nextPage = page + 1;
     sessionStorage.setItem('currentPage', nextPage.toString())
@@ -89,7 +88,6 @@ const Result = () => {
                 loading={isLoadingGenres}
               />
 
-            
               <Bytasida
                 page={page}
                 totalPages={totalPages}

@@ -16,15 +16,12 @@ const MoviePage = () => {
   const movieId = Number(id)
   const [newMovie, setNewMovie] = React.useState<number>(movieId)
 
- 
 
   useEffect(() => {
     visitedMovie(movieId)
   }, [movieId])
     
 
-
-  
   const {
     data: movie,
     isFetching: isLoadingMovie,
@@ -64,11 +61,6 @@ const MoviePage = () => {
               data={movie}
               title="Images"
             />
-
-            {/* <MovieImgCarousel
-              data2={movie} 
-              title="Videos"
-            /> */}
           </>
         )}
       </>  

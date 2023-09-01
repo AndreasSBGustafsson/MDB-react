@@ -3,7 +3,6 @@ import { MoviesArray } from "../types/MoviesArray.type"
 import { MovieInfo } from "../types/MovieInfo.type"
 import { ActorInfo } from "../types/ActorInfo.types"
 import { GenreList} from "../types/Genre.types"
-import { visitedMovie } from "../utils/lastVisited"
 import { LastVisited } from "../types/LastVisited.type"
 
 const FAKE_DELAY = 1000
@@ -22,10 +21,10 @@ const instance = axios.create({
 const get = async <T>(endpoint: string) => {
     
     const response = await instance.get<T>(endpoint)
-    /* !!FAKE_DELAY && await new Promise(resolve => setTimeout(resolve, FAKE_DELAY)) */
+    !!FAKE_DELAY && await new Promise(resolve => setTimeout(resolve, FAKE_DELAY))
     return response.data
 }
-
+    
 export const getPopularMovies =(page=1) => {
     return get<MoviesArray>(`/movie/popular?&page=${page}&include_adult=false!`)
 }
@@ -67,6 +66,13 @@ export const getLastvisited = (data:number[]) => {
     });
 
     return lastVisitedArray
+}
+
+export const getTrending = (selcted:string) => {
+    console.log(selcted);
+    
+    return get<MoviesArray>(`/trending/movie/${selcted}?&include_adult=false!`)
+
 }
     
 

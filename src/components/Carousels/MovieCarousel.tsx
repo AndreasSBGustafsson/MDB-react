@@ -35,15 +35,15 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
         <>
         {data?.results.length === 0 ? <h2>Could Not Get Data ....</h2>:
         <>
-            <h2 onClick={navToCategory}>{title}</h2>
+            <h2 style={{margin:'1rem'}}onClick={navToCategory}>{title}</h2>
             <Carousel
             indicators={false}
             interval={null}
             >
                 {data?.results.map((movie: Movie, index) => (
                     
-                    <Carousel.Item key={index} /* style={{ width: '18rem' }} */>
-                        <CardGroup /* className='justify-content-center align-items-center' */>
+                    <Carousel.Item key={index}>
+                        <CardGroup>
                             <Card as={Link} to={`/movie/${movie.id}`} key={movie.id} onClick={submit}>
                                 <div className='
                                     d-flex
@@ -76,7 +76,13 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
                                     
                                 <Card.Body
                                 className='d-column movieCard'>
-                                    <Card.Title className='movieCardTitle' style={{color:'white', borderRadius:'1rem', padding:'0.5rem'}}>{movie.title}</Card.Title>
+                                    <Card.Title className='movieCardTitle'
+                                        style={{
+                                            color:'white', 
+                                            borderRadius:'1rem', 
+                                            padding:'0.5rem'}}>
+                                                {movie.title}
+                                    </Card.Title>
                                 </Card.Body>
                                 </div>
                                 </div>

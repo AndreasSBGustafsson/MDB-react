@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext } from "react";
 
 export type ResultContextType = {
     updateGenreList: (genreList:number[]) => void;
@@ -12,7 +12,7 @@ const initialState = {
     updateGenreList: (genreList:number[]) => {},
     }
 const ResultContext = createContext(initialState);
-/* const UserDispatchContext = createContext(undefined); */
+
 const ResultUpdateContext = createContext<ResultContextType|null>(null);
 
 // A "provider" is used to encapsulate only the
@@ -20,19 +20,14 @@ const ResultUpdateContext = createContext<ResultContextType|null>(null);
 function ResultProvider({ children }:{children:React.ReactNode}) {
     const [genreListContext, setGenreListContext] = React.useState<number[]>([])
 
-/*   useEffect(() => {
-      console.log('from Context:',genreListContext);
-  }, [genreListContext]);
- */
+
     const updateGenreList = (genreList:number[]):void => {
         setGenreListContext(genreList);
     }
 
   return (
     <ResultContext.Provider value={{genreListContext,updateGenreList}}>
-      {/* <ResultUpdateContext.Provider value={setGenreList}> */}
         {children}
-      {/* </ResultUpdateContext.Provider> */}
     </ResultContext.Provider>
   );
 }
