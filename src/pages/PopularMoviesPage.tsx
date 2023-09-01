@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
 import ResultCard from '../components/ResultCard'
-import Bytasida from '../components/Partial/Bytasida'
+import Bytasida from '../components/pagination/Bytasida'
+import usePopularMovies from '../hooks/usePopularMovies'
+import LoadingDots from '../components/spinners/LoadingDots'
 
 
 const Result = () => {
 
-  const currentPage = sessionStorage.getItem('currentPagePopularMovies')
+  const currentPage = sessionStorage.getItem('currentPageOnTheater')
   const initialPage = currentPage ? parseInt(currentPage) : 1
   const [page, setPage] = React.useState<number>(initialPage)
 
@@ -23,12 +23,13 @@ const Result = () => {
     setPage(page - 1)
   }
 
+
   const {
     data,
     isFetching:isLoading,
     isError:error,
     refetch
-  } = useQuery(['popularMovies'],()=>TMBD.getPopularMovies(page))
+  } = usePopularMovies("popularmovies",page)
 
   const totalPages = data?.total_pages || 1
 
@@ -39,21 +40,24 @@ const Result = () => {
 
   return (
       <>
-      {data &&<div onClick={()=>setPage(1)}>Popular Movies</div>}
+      {data &&<div style={{display:'flex', justifyContent:'space-between'}}onClick={()=>setPage(1)}>Popular Movies {isLoading && <LoadingDots/>}</div>}
         {data?.results && data.results.length === 0 && <div>No results</div>}
-        <ResultCard
-        data={data}
-        loading={isLoading}
-        error={error}
-        />
-        <Bytasida
-        page={page}
-        totalPages={totalPages}
-        loading={isLoading}
-        onNextClick={handleNextClick} // Increment page for Next click
-        onPreviousClick={handlePreviousClick} 
-        />
-        </>
+
+          <ResultCard
+          data={data}
+          loading={isLoading}
+          error={error}
+          />
+          
+          <Bytasida
+          page={page}
+          totalPages={totalPages}
+          loading={isLoading}
+          error={error}
+          onNextClick={handleNextClick} // Increment page for Next click
+          onPreviousClick={handlePreviousClick} 
+          />
+      </>
   )
 }
 

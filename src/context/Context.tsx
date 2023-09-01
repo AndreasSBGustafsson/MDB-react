@@ -20,10 +20,10 @@ const ResultUpdateContext = createContext<ResultContextType|null>(null);
 function ResultProvider({ children }:{children:React.ReactNode}) {
     const [genreListContext, setGenreListContext] = React.useState<number[]>([])
 
-  useEffect(() => {
+/*   useEffect(() => {
       console.log('from Context:',genreListContext);
   }, [genreListContext]);
-
+ */
     const updateGenreList = (genreList:number[]):void => {
         setGenreListContext(genreList);
     }

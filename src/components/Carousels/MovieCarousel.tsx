@@ -1,44 +1,39 @@
-import { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import {Link,useNavigate} from 'react-router-dom'
-
 import {Movie, MoviesArray } from '../../types/MoviesArray.type'
 import { Carousel } from 'react-bootstrap'
-import LoadingSpinner from '../Spinners/LoadingSpinner'
-import LoadingDots from '../Spinners/LoadingDots'
-
+import LoadingDots from '../spinners/LoadingDots'
+import setPageSessionStorage from '../../utils/setPageSessionStorage'
 
 
 type Props = {
     data:MoviesArray|undefined
     title:string
     navTo:string
-    loading:boolean
-    error:boolean
+    loading?:boolean
+    error?:boolean
     submit?:()=>void
 }
 
 const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
-
+    
     const navigate = useNavigate()
 
-    const [cardTitle, setCardTitle] = useState("")
-    const [navTitle, setNavTitle] = useState("")
-    
-    useEffect(() => {
-        setCardTitle(title)
-        setNavTitle(navTo)
-    },[])
+    const navToCategory = () => {
+        
+        setPageSessionStorage(navTo)
+        navigate(`/result/${navTo}`)
+    }
   
     return (
 
         <>
         {loading ? <LoadingDots/> : 
         <>
-        {!error && (
+        {error ? <div></div>:
         <>
-            <h2 onClick={()=>navigate(`/result/${navTitle}`)}>{cardTitle}</h2>
+            <h2 onClick={navToCategory}>{title}</h2>
             <Carousel
             indicators={false}
             interval={null}
@@ -89,7 +84,7 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
                 ))}
             </Carousel>
             </>
-        )}
+        }
         </>
         }
         </>

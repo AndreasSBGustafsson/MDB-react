@@ -11,12 +11,12 @@ import TopRatedPage from './pages/TopRatedPage'
 import OnTheaterPage from './pages/OnTheaterPage'
 import AllActorsPage from './pages/AllActorsPage'
 import { ResultProvider } from './context/Context'
-
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 const App = () => {
   return (
+    <>
     <div className='bg'>
       <Navigation />
       <Container className='mt-2'>
@@ -35,7 +35,8 @@ const App = () => {
         </ResultProvider>
       </Container>
       </div>
-      
+        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+        </>
   )
 }
 

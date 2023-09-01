@@ -1,12 +1,11 @@
-import { useQuery } from "@tanstack/react-query"
-import * as TMBD from '../services/TMDBAPI'
 import { useParams} from "react-router-dom"
 import MovieOverview from "../components/MovieOverview"
-import ActorCarousel from "../components/Carousels/ActorCarousel"
-import MovieCarousel from "../components/Carousels/MovieCarousel"
-import MovieImgCarousel from "../components/Carousels/MovieImgCarousel"
+import ActorCarousel from "../components/carousels/ActorCarousel"
+import MovieCarousel from "../components/carousels/MovieCarousel"
+import MovieImgCarousel from "../components/carousels/MovieImgCarousel"
 import React from "react"
-import LoadingDots from "../components/Spinners/LoadingDots"
+import LoadingDots from "../components/spinners/LoadingDots"
+import useMovie from "../hooks/useMovie"
 
 
 const MoviePage = () => {
@@ -20,54 +19,47 @@ const MoviePage = () => {
     isFetching: isLoadingMovie,
     isError: errorMovie,
     refetch,
-  } = useQuery(['movie'],()=>TMBD.getMovie(newMovie))
+  } = useMovie(newMovie)
 
   const handleMovieSubmit = () => {
-    console.log("handleMovieSubmit", "you Submited")
     setNewMovie((Number(useParams())))
     refetch()
   }
 
   return (
       <>
-      {errorMovie && <div>Something Went Wrong</div>}
-      {isLoadingMovie ? <LoadingDots /> :
-      <>
-      <MovieOverview
-      data={movie}
-      loading={isLoadingMovie}
-      />
-        
-      <ActorCarousel
-      data={movie}
-      loading={isLoadingMovie}
-      error={errorMovie}
-      />
+        {errorMovie && <div>Something Went Wrong</div>}
+        {isLoadingMovie ? (
+          <LoadingDots />
+        ):(
+          <>
+            <MovieOverview
+            data={movie}
+            />
+              
+            <ActorCarousel
+            data={movie}
+            />
 
-      <MovieCarousel
-      data={movie?.similar}
-      title={"Similar Movies"}
-      navTo={"movie"}
-      loading={isLoadingMovie}
-      error={errorMovie}
-      submit={handleMovieSubmit}
-      />
-      <MovieImgCarousel
-      data={movie}
-      title="Images"
-      loading={isLoadingMovie}
-      error={errorMovie}
-      />
+            <MovieCarousel
+            data={movie?.similar}
+            title={"Similar Movies"}
+            navTo={"movie"}
+            error={errorMovie}
+            submit={handleMovieSubmit}
+            />
+            
+            <MovieImgCarousel
+            data={movie}
+            title="Images"
+            />
 
-      <MovieImgCarousel
-      data2={movie} 
-      title="Videos"
-      loading={isLoadingMovie}
-      error={errorMovie}
-      />
-
-      </>
-      }
+            <MovieImgCarousel
+            data2={movie} 
+            title="Videos"
+            />
+          </>
+        )}
       </>  
   )
 }

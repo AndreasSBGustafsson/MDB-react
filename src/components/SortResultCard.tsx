@@ -3,19 +3,23 @@ import Form from 'react-bootstrap/Form'
 import { Card,} from 'react-bootstrap'
 import { GenreList, GenreObjects } from '../types/Genre.types'
 import { ResultContext} from '../context/Context'
+import LoadingDots from './spinners/LoadingDots'
 
 type Props = {
   data: GenreList| undefined
   submit: () => void
   error: boolean
+  loading: boolean
 }
 
-const SortResultCard = ({submit, data, error}: Props) => {
+const SortResultCard = ({submit, data, loading }: Props) => {
 
   const currentGenreList = sessionStorage.getItem('genreList')
   const initialGenreList = currentGenreList ? JSON.parse(currentGenreList) : []
+  const currentGenres = sessionStorage.getItem('selectedGenres')
+  const initialGenres = currentGenres ? JSON.parse(currentGenres): []
   const [genreList, setGenreList] = React.useState<number[]>(initialGenreList)
-  const [selectedGenres, setSelectedGenres] = React.useState<string[]>([])
+  const [selectedGenres, setSelectedGenres] = React.useState<string[]>(initialGenres)
 
   const {updateGenreList} = useContext(ResultContext)
       
@@ -34,16 +38,17 @@ const SortResultCard = ({submit, data, error}: Props) => {
     // Save selected genres and genreList to session storage when they change
     sessionStorage.setItem('selectedGenres', JSON.stringify(selectedGenres))
     sessionStorage.setItem('genreList', JSON.stringify(genreList))
+
     // Update genreList in the context
     updateGenreList(genreList)
     
-  }, [selectedGenres, genreList, updateGenreList])
+  }, [selectedGenres, genreList])
 
 
   return (
     <>
-    {error && <div>Something went wrong...</div>}
-    
+    {loading ? <></>:(
+      <>
       <div style={{color:'white',}}>Genre</div>
        <Card className='bg-dark'style={{color:'white',}}>
          <Form>
@@ -76,9 +81,15 @@ const SortResultCard = ({submit, data, error}: Props) => {
             color:'white',
             fontSize:'1.2rem',
             margin:'0.5rem',
+            display:'flex',
+            justifyContent:'space-between',
             }}  
             >
-          {selectedGenres.join(', ')}</div>
+          {selectedGenres.length===0 ? selectedGenres.join(' '):selectedGenres.join(',')}
+          {loading && <LoadingDots />}
+          </div>
+      </>
+    )}
     </>
   )
 }

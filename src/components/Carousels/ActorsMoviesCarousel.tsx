@@ -1,7 +1,6 @@
-import React from 'react'
 import { Card, CardGroup, Carousel } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { Cast, Credits } from '../../types/Credits.types'
+import { Link } from 'react-router-dom'
+import { Credits } from '../../types/Credits.types'
 
 type Props = {
     data:Credits|undefined

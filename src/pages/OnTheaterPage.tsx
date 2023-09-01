@@ -1,9 +1,9 @@
 import React from 'react'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
 import ResultCard from '../components/ResultCard'
 import { useEffect } from 'react'
-import Bytasida from '../components/Partial/Bytasida'
+import Bytasida from '../components/pagination/Bytasida'
+import useOnTheater from '../hooks/useOnTheater'
+import LoadingDots from '../components/spinners/LoadingDots'
 
 
 const Result = () => {
@@ -31,7 +31,7 @@ const Result = () => {
     refetch,
     isFetching:isLoading,
     isError:error,
-  } = useQuery(['popularMovies'],()=>TMBD.getOnTheaterMovie(page))
+  } = useOnTheater("ontheater",page)
 
   const totalPages = data?.total_pages || 1
 
@@ -41,22 +41,24 @@ const Result = () => {
 
   return (
       <>
-      <div onClick={()=>setPage(1)}>On Theater</div>
-      {data?.results && data.results.length === 0 && <div>No results</div>}
-        <ResultCard
-        data={data}
-        loading={isLoading}
-        error={error}
-        />
+        {data &&<div style={{display:'flex', justifyContent:'space-between'}}onClick={()=>setPage(1)}>On Theater {isLoading && <LoadingDots/>}</div>}
+        {data?.results && data.results.length === 0 && <div>No results</div>}
 
-        <Bytasida
-        page={page}
-        totalPages={totalPages}
-        loading={isLoading}
-        onNextClick={handleNextClick} 
-        onPreviousClick={handlePreviousClick}
-        />
-        </>
+          <ResultCard
+          data={data}
+          loading={isLoading}
+          error={error}
+          />
+
+          <Bytasida
+          page={page}
+          totalPages={totalPages}
+          loading={isLoading}
+          error={error}
+          onNextClick={handleNextClick} 
+          onPreviousClick={handlePreviousClick}
+          />
+      </>
   )
 }
 

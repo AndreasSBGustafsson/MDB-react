@@ -2,18 +2,18 @@ import { Card, CardGroup, Carousel } from 'react-bootstrap'
 import { Cast } from '../../types/Credits.types'
 import { useNavigate } from 'react-router-dom'
 import { MovieInfo } from '../../types/MovieInfo.type'
-import LoadingSpinner from '../Spinners/LoadingSpinner'
+import LoadingSpinner from '../spinners/LoadingDots'
 
 
 type Props = {
     data:MovieInfo|undefined
-    loading:boolean
-    error:boolean
+    loading?:boolean
+    error?:boolean
 }
 
-    const ActorCarousel = ({data, loading}: Props) => {
+const ActorCarousel = ({data, loading}: Props) => {
 
-        const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     return (

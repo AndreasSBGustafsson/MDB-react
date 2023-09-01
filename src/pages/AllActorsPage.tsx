@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
 import { useParams } from 'react-router-dom'
 import ActorsResultCard from '../components/ActorsResultCard'
-import LoadingDots from '../components/Spinners/LoadingDots'
+import LoadingDots from '../components/spinners/LoadingDots'
+import useMovie from '../hooks/useMovie'
 
 
 const Result = () => {
@@ -14,21 +13,24 @@ const Result = () => {
     data,
     isFetching:isLoading,
     isError:error,
-  } = useQuery(['movie'],()=>TMBD.getMovie(movieId))
+  } = useMovie(movieId)
 
 
   return (
     <>
-    {isLoading ? <LoadingDots />:
-    <>
-    {error? <div>Something Went Wrong</div>:
-
-    <ActorsResultCard
-    data={data}
-    />
-  }
-    </>
-  }
+      {isLoading ?(
+         <LoadingDots />
+      ):(
+        <>
+          {error?(
+            <div>Something Went Wrong</div>
+          ):(
+            <ActorsResultCard
+            data={data}
+            />
+          )}
+        </>
+      )}
     </>
   )
 }

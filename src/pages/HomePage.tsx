@@ -1,63 +1,67 @@
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
-import MovieCarousel from '../components/Carousels/MovieCarousel'
-import LoadingSpinner from '../components/Spinners/LoadingSpinner'
-import LoadingDots from '../components/Spinners/LoadingDots'
+import MovieCarousel from '../components/carousels/MovieCarousel'
+import LoadingDots from '../components/spinners/LoadingDots'
+import useTopRated from '../hooks/useTopRated'
+import useOnTheater from '../hooks/useOnTheater'
+import usePopularMovies from '../hooks/usePopularMovies'
 
 
 const HomePage = () => {
-
+  
   const {
     data:popularMovies,
     isFetching:isLoadingPopular,
     isError:errorPopular
-  } = useQuery(['popularMovies'],()=>TMBD.getPopularMovies())
+  } = usePopularMovies("popularmoivesCar",1)
 
   const {
     data:onTheater,
     isFetching:isLoadingTheater,
     isError:errorTheater
-  } = useQuery(['onTheater'],()=>TMBD.getOnTheaterMovie())
+  } = useOnTheater("ontheaterCar",1)
 
   const {
     data:topRated,
     isFetching:isLoadingTopRated,
     isError:errorTopRated,
-  } = useQuery(['topRated'],()=>TMBD.getTopRatedMovies())
+  } = useTopRated("topratedCar",1)
 
 
   return (
     <>
-    {isLoadingPopular && isLoadingTheater && isLoadingTopRated ? <LoadingDots/>:
-    <>
-      {errorTopRated && errorTheater && errorPopular ? <div>Something Went Wrong</div>:
-      <>    
-      <MovieCarousel
-      data={popularMovies}
-      title={"Popular Movies"}
-      navTo={"popularmovies"}
-      loading={isLoadingPopular}
-      error={errorPopular}
+      {isLoadingPopular && isLoadingTheater && isLoadingTopRated ?(
+        <LoadingDots/>
+      ):(
+      <>
+        {errorTopRated && errorTheater && errorPopular ? <div>Something Went Wrong</div>:
+          <>    
+            <MovieCarousel
+            data={popularMovies}
+            title={"Popular Movies"}
+            navTo={"popularmovies"}
+            loading={isLoadingPopular}
+            error={errorPopular}
+            />
 
-      />
-      <MovieCarousel 
-      data={onTheater}
-      title={"On Theater"}
-      navTo='ontheater'
-      loading={isLoadingTheater}
-      error={errorTheater}
-      />
-      <MovieCarousel 
-      data={topRated}
-      title={"Top Rated"}
-      navTo={'toprated'}
-      loading={isLoadingTopRated}
-      error={errorTopRated}
-      />
-    </>
-    }
-    </>
-    }
+            <MovieCarousel 
+            data={onTheater}
+            title={"On Theater"}
+            navTo={"ontheater"}
+            loading={isLoadingTheater}
+            error={errorTheater}
+            />
+
+            <MovieCarousel 
+            data={topRated}
+            title={"Top Rated"}
+            navTo={"toprated"}
+            loading={isLoadingTopRated}
+            error={errorTopRated}
+            />
+          </>
+        }
+      </>
+      )
+      }
     </>
   )
 }

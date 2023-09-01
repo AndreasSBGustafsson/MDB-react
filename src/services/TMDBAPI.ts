@@ -5,6 +5,7 @@ import { ActorInfo } from "../types/ActorInfo.types"
 import { GenreList} from "../types/Genre.types"
 
 const FAKE_DELAY = 1000
+export const API_KEY = import.meta.env.VITE_APP_TMDB_API_KEY
 
 const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3",
@@ -12,11 +13,12 @@ const instance = axios.create({
     method: "GET",
     headers: {
         "Accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZWQwNDRkMzFkZDA0MWNjNGMyNzI3NDNmMjVjMWUxOSIsInN1YiI6IjY0ZTRkZDIyYzYxM2NlMDEyY2MzNmQzNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Q1L89gR_u_NLShmDNjOFxBFgKk2DFoziVo4TJ6BTKek",
+        "Authorization": `Bearer ${API_KEY}`,
     },
     })
 
 const get = async <T>(endpoint: string) => {
+    
     const response = await instance.get<T>(endpoint)
     !!FAKE_DELAY && await new Promise(resolve => setTimeout(resolve, FAKE_DELAY))
     return response.data

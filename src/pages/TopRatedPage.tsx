@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import * as TMBD from '../services/TMDBAPI'
 import ResultCard from '../components/ResultCard'
-import Bytasida from '../components/Partial/Bytasida'
+import Bytasida from '../components/pagination/Bytasida'
+import useTopRated from '../hooks/useTopRated'
+import LoadingDots from '../components/spinners/LoadingDots'
 
 
 const Result = () => {
@@ -28,8 +28,9 @@ const Result = () => {
     refetch,
     isFetching: isLoading,
     isError: error,
-  } = useQuery(['popularMovies'],()=>TMBD.getTopRatedMovies(page))
+  } = useTopRated("toprated",page)
 
+  //setting data for Total pages
   const totalPages = data?.total_pages || 1
 
   useEffect(() => {
@@ -39,21 +40,24 @@ const Result = () => {
 
   return (
       <>
-       <div onClick={()=>setPage(1)}>Top Rated</div>
-        {data?.results && data.results.length === 0 && <div>No results</div>}
-        <ResultCard
-        data={data}
-        loading={isLoading}
-        error={error}
+      {data &&<div style={{display:'flex', justifyContent:'space-between'}}onClick={()=>setPage(1)}>Top Rated {isLoading && <LoadingDots/>}</div>}
+          {data?.results && data.results.length === 0 && <div>No results</div>}
+
+          <ResultCard
+          data={data}
+          loading={isLoading}
+          error={error}
+          />
+
+          <Bytasida
+          page={page}
+          totalPages={totalPages}
+          loading={isLoading}
+          error={error}
+          onNextClick={handleNextClick}
+          onPreviousClick={handlePreviousClick}
         />
-        <Bytasida
-        page={page}
-        totalPages={totalPages}
-        loading={isLoading}
-        onNextClick={handleNextClick}
-        onPreviousClick={handlePreviousClick}
-        />
-        </>
+      </>
   )
 }
 

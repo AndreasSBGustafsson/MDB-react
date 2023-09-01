@@ -2,7 +2,6 @@ import { Card, Carousel, Modal } from "react-bootstrap"
 import { Backdrop, MovieInfo, Result } from "../../types/MovieInfo.type"
 import { useEffect, useState } from "react"
 import { ActorInfo } from "../../types/ActorInfo.types"
-import LoadingSpinner from "../Spinners/LoadingSpinner"
 
 
 type Props = {
@@ -10,12 +9,10 @@ type Props = {
     data2?:MovieInfo|undefined
     data3?:ActorInfo|undefined
     title:string
-    loading:boolean
-    error:boolean
 }
 
 
-const MoiveImgCarousel = ({data, data2,data3, title, loading, error}: Props) => {
+const MoiveImgCarousel = ({data, data2,data3, title }: Props) => {
 
   const [cardTitle, setCardTitle] = useState("")
   const [showModal, setShowModal] = useState(false)
@@ -27,9 +24,6 @@ const MoiveImgCarousel = ({data, data2,data3, title, loading, error}: Props) => 
   },[title])
 
     return (
-        <>
-        {/* {error && <div>Something went wrong ...</div>} */}
-        {loading ? <LoadingSpinner/> :
         <>
         {data && (
         <>
@@ -151,8 +145,6 @@ const MoiveImgCarousel = ({data, data2,data3, title, loading, error}: Props) => 
             </Carousel>
             </>
         )}
-        </>
-        }
         </>
   )
 }

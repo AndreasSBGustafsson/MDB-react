@@ -1,19 +1,20 @@
 import { Button } from 'react-bootstrap'
-import LoadingSpinner from '../Spinners/LoadingSpinner'
-import LoadingDots from '../Spinners/LoadingDots'
-import LoadingSpinnerSm from '../Spinners/LoadingSpinnerSm'
+import LoadingSpinnerSm from '../spinners/LoadingSpinnerSm'
 
 type Props = {
+    data?:any
     page:number
     totalPages:number
     loading:boolean
+    error:boolean
     onNextClick:()=>void
     onPreviousClick:()=>void
 }
 
-const Bytasida = ({page, totalPages, loading, onNextClick,onPreviousClick}: Props) => {
+const Bytasida = ({page, totalPages, loading, error, onNextClick,onPreviousClick}: Props) => {
   return (
-
+    <>
+    {!error ? (
     <>
     {totalPages>1 &&(
       
@@ -35,6 +36,11 @@ const Bytasida = ({page, totalPages, loading, onNextClick,onPreviousClick}: Prop
     <Button variant='dark' onClick={onNextClick} disabled={page===totalPages || loading}>Next</Button>
     </div>
   )}
+  </>
+  ):(
+    <div></div>
+  )
+  }
   </>
   )
 }
