@@ -85,7 +85,9 @@ const SortResultCard = ({submit, data, error, loading }: Props) => {
             justifyContent:'space-between',
             }}  
             >
-          {selectedGenres.length===0 ? selectedGenres.join(' '):selectedGenres.join(',')}
+              {selectedGenres.length===0 ? 'All': 
+              <>
+          {selectedGenres.length===1 ? selectedGenres.join(' '):selectedGenres.join(',')}</>}
           {loading && <LoadingDots />}
           </div>
       </>
