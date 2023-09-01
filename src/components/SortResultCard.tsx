@@ -8,11 +8,11 @@ import LoadingDots from './spinners/LoadingDots'
 type Props = {
   data: GenreList| undefined
   submit: () => void
-  error: boolean
   loading: boolean
+  error: boolean
 }
 
-const SortResultCard = ({submit, data, loading }: Props) => {
+const SortResultCard = ({submit, data, error, loading }: Props) => {
 
   const currentGenreList = sessionStorage.getItem('genreList')
   const initialGenreList = currentGenreList ? JSON.parse(currentGenreList) : []
@@ -47,7 +47,7 @@ const SortResultCard = ({submit, data, loading }: Props) => {
 
   return (
     <>
-    {loading ? <></>:(
+    {error ? <></>:(
       <>
       <div style={{color:'white',}}>Genre</div>
        <Card className='bg-dark'style={{color:'white',}}>
