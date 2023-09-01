@@ -3,6 +3,8 @@ import { MoviesArray } from "../types/MoviesArray.type"
 import { MovieInfo } from "../types/MovieInfo.type"
 import { ActorInfo } from "../types/ActorInfo.types"
 import { GenreList} from "../types/Genre.types"
+import { visitedMovie } from "../utils/lastVisited"
+import { LastVisited } from "../types/LastVisited.type"
 
 const FAKE_DELAY = 1000
 export const API_KEY = import.meta.env.VITE_APP_TMDB_API_KEY
@@ -50,6 +52,21 @@ export const getGenreList = () => {
 
 export const getGenres = (data:number[], page:number) => {
     return get<MoviesArray>(`/discover/movie?&region=SE&with_genres=${data.map((genre) => genre).join(",")}&desc_by=popularity&page=${page}&include_adult=false!`)
+}
+
+export const getLastvisited = (data:number[]) => {
+
+    const lastVisitedArray:LastVisited = []
+
+    data.map((movieId) => {
+        get<MovieInfo>(`/movie/${movieId}?append_to_response=credits,similar,images,videos&include_adult=false!`)
+        
+        .then((response) => {
+            lastVisitedArray.push(response)
+        })
+    });
+
+    return lastVisitedArray
 }
     
 

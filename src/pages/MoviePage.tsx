@@ -1,11 +1,13 @@
-import { useParams} from "react-router-dom"
+
+import React, {useEffect} from "react"
+import { useParams } from "react-router-dom"
 import MovieOverview from "../components/MovieOverview"
 import ActorCarousel from "../components/carousels/ActorCarousel"
 import MovieCarousel from "../components/carousels/MovieCarousel"
 import MovieImgCarousel from "../components/carousels/MovieImgCarousel"
-import React from "react"
 import LoadingDots from "../components/spinners/LoadingDots"
 import useMovie from "../hooks/useMovie"
+import { visitedMovie } from "../utils/lastVisited"
 
 
 const MoviePage = () => {
@@ -13,6 +15,15 @@ const MoviePage = () => {
   const { id } = useParams()
   const movieId = Number(id)
   const [newMovie, setNewMovie] = React.useState<number>(movieId)
+
+ 
+
+  useEffect(() => {
+    visitedMovie(movieId)
+  }, [movieId])
+    
+
+
   
   const {
     data: movie,
@@ -54,10 +65,10 @@ const MoviePage = () => {
               title="Images"
             />
 
-            <MovieImgCarousel
+            {/* <MovieImgCarousel
               data2={movie} 
               title="Videos"
-            />
+            /> */}
           </>
         )}
       </>  

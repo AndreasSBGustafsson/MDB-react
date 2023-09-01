@@ -6,8 +6,8 @@ export type Credits = {
 };  
 
 export type Cast = {
-    poster_path: any;
-    backdrop_path: any;
+    poster_path: string|null;
+    backdrop_path: string|null
     title: ReactNode;
     release_date: ReactNode;
     adult: boolean;

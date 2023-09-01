@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom"
 import ActorsOverview from "../components/ActorsOverview"
 import ActorsMoviesCarousel from "../components/carousels/ActorsMoviesCarousel"
-import MoiveImgCarousel from "../components/carousels/MovieImgCarousel"
 import LoadingDots from "../components/spinners/LoadingDots"
 import useActor from "../hooks/useActor"
+import MovieImgCarousel from "../components/carousels/MovieImgCarousel"
 
 
 const ActorPage = () => {
@@ -18,33 +18,16 @@ const ActorPage = () => {
   } = useActor(actorId)
 
 
+  if (isLoading) return <LoadingDots />
+
+  if (error) return <div>Something Went Wrong</div>
+
   return (
-      <>
-        {isLoading ?(
-          <LoadingDots />
-        ):(
-          <>
-            {error ?(
-              <div>Something Went Wrong</div>
-            ):(
-              <>
-                <ActorsOverview
-                data={actor}
-                />
-
-                <ActorsMoviesCarousel  
-                data={actor?.credits}
-                />
-
-                <MoiveImgCarousel
-                data3={actor}
-                title="Images"
-                />
-              </>
-            )}
-          </>
-         )}
-      </>
+    <>
+      <ActorsOverview data={actor} />
+      <ActorsMoviesCarousel data={actor?.credits} />
+      <MovieImgCarousel data3={actor} title="Images" />
+    </>
   )
 }
 

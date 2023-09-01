@@ -2,7 +2,6 @@ import { Button } from 'react-bootstrap'
 import LoadingSpinnerSm from '../spinners/LoadingSpinnerSm'
 
 type Props = {
-    data?:any
     page:number
     totalPages:number
     loading:boolean

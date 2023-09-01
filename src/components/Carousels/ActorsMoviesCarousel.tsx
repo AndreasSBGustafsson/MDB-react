@@ -16,8 +16,8 @@ const ActorsMoviesCarousel = ({data}: Props) => {
             interval={null}
         >
             {data?.cast.map((movie  => (
-                <Carousel.Item key={movie.id} /* style={{ width: '18rem' }} */>
-                    <CardGroup /* className='justify-content-center align-items-center' */>
+                <Carousel.Item key={movie.id}>
+                    <CardGroup>
                         <Card as={Link} to={`/movie/${movie.id}`} key={movie.id}>
                             <div className='
                                 d-flex

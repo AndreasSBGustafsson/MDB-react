@@ -34,7 +34,7 @@ const navigate =useNavigate()
                 }}>
                 <Card.Img onClick={()=>navigate(`/actor/${cast.id}`)}variant="bottom"
                   src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                  style={{height:'au', width:'auto'}}
+                  style={{height:'auto', width:'auto'}}
                   className="rounded-start"/>
                 <Card.Body
                   style={{

@@ -1,50 +1,32 @@
-import Card from 'react-bootstrap/Card'
-import CardGroup from 'react-bootstrap/CardGroup'
-import {Link,useNavigate} from 'react-router-dom'
-import {Movie, MoviesArray } from '../../types/MoviesArray.type'
-import { Carousel } from 'react-bootstrap'
-import LoadingDots from '../spinners/LoadingDots'
-import setPageSessionStorage from '../../utils/setPageSessionStorage'
+import { LastVisited } from '../../types/LastVisited.type'
+import { Card, CardGroup, Carousel } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { MovieInfo } from '../../types/MovieInfo.type'
 
+type Props = {data:LastVisited|undefined, title:string, loading?:boolean, error?:boolean}
 
-type Props = {
-    data:MoviesArray|undefined
-    title:string
-    navTo:string
-    loading?:boolean
-    error?:boolean
-    submit?:()=>void
-}
+const LastVistedCar = ({data, title }:Props) => {
 
-const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
+   //This shows data so there's data to be displayed
+    data?.map((movie: MovieInfo) => (console.log(movie.poster_path)))
+
     
-    const navigate = useNavigate()
+    
 
-    const navToCategory = () => {
-        
-        setPageSessionStorage(navTo)
-        navigate(`/result/${navTo}`)
-    }
-  
-    return (
 
-        <>
-        {loading ? <LoadingDots/> : 
-        <>
-        {error ? <div></div>:
-        <>
-        {data?.results.length === 0 ? <h2>Could Not Get Data ....</h2>:
-        <>
-            <h2 onClick={navToCategory}>{title}</h2>
+  return (
+    <>
+    {data?.length === 0 ? <h2>Could Not Get Data ....</h2>:
+    <>
+    <h2>{title}</h2>
             <Carousel
             indicators={false}
             interval={null}
             >
-                {data?.results.map((movie: Movie, index) => (
-                    
-                    <Carousel.Item key={index} /* style={{ width: '18rem' }} */>
-                        <CardGroup /* className='justify-content-center align-items-center' */>
-                            <Card as={Link} to={`/movie/${movie.id}`} key={movie.id} onClick={submit}>
+                {data?.map((movie: MovieInfo,index) => (
+                    <Carousel.Item key={index} >
+                        <CardGroup>
+                            <Card as={Link} to={`/movie/${movie.id}`} key={movie.id}>
                                 <div className='
                                     d-flex
                                     flex-column
@@ -83,18 +65,14 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
                             </Card>
                         </CardGroup>
                     </Carousel.Item>
-                ))}
+                ))
+                
+                }
             </Carousel>
-            </>
-        }
-        </>
-        }
-        </>
-        }
-        </>
-    )
+    </>
+    }
+    </>
+  )
 }
 
-
-
-export default MovieCarousel
+export default LastVistedCar

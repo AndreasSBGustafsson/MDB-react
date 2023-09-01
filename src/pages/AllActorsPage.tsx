@@ -1,42 +1,23 @@
-import { useParams } from 'react-router-dom'
-import ActorsResultCard from '../components/ActorsResultCard'
-import LoadingDots from '../components/spinners/LoadingDots'
-import useMovie from '../hooks/useMovie'
-
+import { useParams } from 'react-router-dom';
+import ActorsResultCard from '../components/ActorsResultCard';
+import LoadingDots from '../components/spinners/LoadingDots';
+import useMovie from '../hooks/useMovie';
 
 const AllActorsPage = () => {
-
-  const {id} = useParams()
-  const movieId = Number(id)
+  const { id: movieIdStr } = useParams()
+  const movieId = Number(movieIdStr)
 
   const {
     data,
-    isFetching:isLoading,
-    isError:error,
+    isFetching: isLoading,
+    isError: error,
   } = useMovie(movieId)
 
+  if (isLoading) return <LoadingDots />
+  
+  if (error) return <div>Something Went Wrong</div>
 
-  return (
-    <>
-      {isLoading ?(
-         <LoadingDots />
-      ):(
-        <>
-          {error?(
-            <div>Something Went Wrong</div>
-          ):(
-            <ActorsResultCard
-            data={data}
-            />
-          )}
-        </>
-      )}
-    </>
-  )
+  return <ActorsResultCard data={data} />
 }
 
-
-export default AllActorsPage
-
-
-
+export default AllActorsPage;
