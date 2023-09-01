@@ -6,7 +6,7 @@ import useOnTheater from '../hooks/useOnTheater'
 import LoadingDots from '../components/spinners/LoadingDots'
 
 
-const Result = () => {
+const OnTheaterPage = () => {
 
   const currentPage = sessionStorage.getItem('currentPageOnTheater')
   const initialPage = currentPage ? parseInt(currentPage) : 1
@@ -41,26 +41,30 @@ const Result = () => {
 
   return (
       <>
-        {data &&<div style={{display:'flex', justifyContent:'space-between'}}onClick={()=>setPage(1)}>On Theater {isLoading && <LoadingDots/>}</div>}
-        {data?.results && data.results.length === 0 && <div>No results</div>}
+        {data &&
+          <div style={{display:'flex', justifyContent:'space-between'}}
+            onClick={()=>setPage(1)}>On Theater {isLoading && <LoadingDots/>}
+          </div>}
+          
+          {data?.results && data.results.length === 0 && <div>No results</div>}
 
           <ResultCard
-          data={data}
-          loading={isLoading}
-          error={error}
+            data={data}
+            loading={isLoading}
+            error={error}
           />
 
           <Bytasida
-          page={page}
-          totalPages={totalPages}
-          loading={isLoading}
-          error={error}
-          onNextClick={handleNextClick} 
-          onPreviousClick={handlePreviousClick}
+              page={page}
+              totalPages={totalPages}
+              loading={isLoading}
+              error={error}
+              onNextClick={handleNextClick} 
+              onPreviousClick={handlePreviousClick}
           />
       </>
   )
 }
 
 
-export default Result
+export default OnTheaterPage

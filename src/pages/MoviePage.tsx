@@ -34,29 +34,29 @@ const MoviePage = () => {
         ):(
           <>
             <MovieOverview
-            data={movie}
+             data={movie}
             />
               
             <ActorCarousel
-            data={movie}
+              data={movie}
             />
 
-            <MovieCarousel
-            data={movie?.similar}
-            title={"Similar Movies"}
-            navTo={"movie"}
-            error={errorMovie}
-            submit={handleMovieSubmit}
+              <MovieCarousel
+              data={movie?.similar}
+              title={"Similar Movies"}
+              navTo={"movie"}
+              error={errorMovie}
+              submit={handleMovieSubmit}
             />
             
             <MovieImgCarousel
-            data={movie}
-            title="Images"
+              data={movie}
+              title="Images"
             />
 
             <MovieImgCarousel
-            data2={movie} 
-            title="Videos"
+              data2={movie} 
+              title="Videos"
             />
           </>
         )}

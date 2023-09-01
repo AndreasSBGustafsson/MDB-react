@@ -5,7 +5,7 @@ import usePopularMovies from '../hooks/usePopularMovies'
 import LoadingDots from '../components/spinners/LoadingDots'
 
 
-const Result = () => {
+const PopularMovies = () => {
 
   const currentPage = sessionStorage.getItem('currentPageOnTheater')
   const initialPage = currentPage ? parseInt(currentPage) : 1
@@ -44,22 +44,22 @@ const Result = () => {
         {data?.results && data.results.length === 0 && <div>No results</div>}
 
           <ResultCard
-          data={data}
-          loading={isLoading}
-          error={error}
+              data={data}
+              loading={isLoading}
+              error={error}
           />
           
           <Bytasida
-          page={page}
-          totalPages={totalPages}
-          loading={isLoading}
-          error={error}
-          onNextClick={handleNextClick} // Increment page for Next click
-          onPreviousClick={handlePreviousClick} 
+              page={page}
+              totalPages={totalPages}
+              loading={isLoading}
+              error={error}
+              onNextClick={handleNextClick} // Increment page for Next click
+              onPreviousClick={handlePreviousClick} 
           />
       </>
   )
 }
 
 
-export default Result
+export default PopularMovies

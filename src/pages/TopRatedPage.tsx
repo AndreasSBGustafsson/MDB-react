@@ -5,7 +5,7 @@ import useTopRated from '../hooks/useTopRated'
 import LoadingDots from '../components/spinners/LoadingDots'
 
 
-const Result = () => {
+const TopRatedPage = () => {
 
   const currentPage = sessionStorage.getItem('currentPageTopRated')
   const initialPage = currentPage ? parseInt(currentPage) : 1
@@ -44,21 +44,21 @@ const Result = () => {
           {data?.results && data.results.length === 0 && <div>No results</div>}
 
           <ResultCard
-          data={data}
-          loading={isLoading}
-          error={error}
+            data={data}
+            loading={isLoading}
+            error={error}
           />
 
           <Bytasida
-          page={page}
-          totalPages={totalPages}
-          loading={isLoading}
-          error={error}
-          onNextClick={handleNextClick}
-          onPreviousClick={handlePreviousClick}
-        />
+            page={page}
+            totalPages={totalPages}
+            loading={isLoading}
+            error={error}
+            onNextClick={handleNextClick}
+            onPreviousClick={handlePreviousClick}
+          />
       </>
   )
 }
 
-export default Result
+export default TopRatedPage

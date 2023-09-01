@@ -6,7 +6,7 @@ import LoadingDots from "../components/spinners/LoadingDots"
 import useActor from "../hooks/useActor"
 
 
-const MoviePage = () => {
+const ActorPage = () => {
 
   const { id } = useParams()
   const actorId = Number(id)
@@ -50,4 +50,4 @@ const MoviePage = () => {
 
 
 
-export default MoviePage
+export default ActorPage

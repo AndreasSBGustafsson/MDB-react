@@ -33,6 +33,8 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
         <>
         {error ? <div></div>:
         <>
+        {data?.results.length === 0 ? <></>:
+        <>
             <h2 onClick={navToCategory}>{title}</h2>
             <Carousel
             indicators={false}
@@ -84,6 +86,8 @@ const MovieCarousel = ({data, title, navTo, loading, error, submit}: Props) => {
                 ))}
             </Carousel>
             </>
+        }
+        </>
         }
         </>
         }

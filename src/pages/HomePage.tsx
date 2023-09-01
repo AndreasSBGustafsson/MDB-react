@@ -25,45 +25,46 @@ const HomePage = () => {
     isError:errorTopRated,
   } = useTopRated("topratedCar",1)
 
+  const isLoading = [isLoadingPopular, isLoadingTheater, isLoadingTopRated].some(Boolean);
+  const hasError = [errorPopular, errorTheater, errorTopRated].some(Boolean);
+
+
 
   return (
     <>
-      {isLoadingPopular && isLoadingTheater && isLoadingTopRated ?(
-        <LoadingDots/>
-      ):(
+    {isLoading ? <LoadingDots /> : null}
+
+    {hasError ? (
+      <div>Something Went Wrong</div>
+    ) : (
       <>
-        {errorTopRated && errorTheater && errorPopular ? <div>Something Went Wrong</div>:
-          <>    
-            <MovieCarousel
-            data={popularMovies}
-            title={"Popular Movies"}
-            navTo={"popularmovies"}
-            loading={isLoadingPopular}
-            error={errorPopular}
-            />
+        <MovieCarousel
+          data={popularMovies}
+          title="Popular Movies"
+          navTo="popularmovies"
+          loading={isLoadingPopular}
+          error={errorPopular}
+        />
 
-            <MovieCarousel 
-            data={onTheater}
-            title={"On Theater"}
-            navTo={"ontheater"}
-            loading={isLoadingTheater}
-            error={errorTheater}
-            />
+        <MovieCarousel
+          data={onTheater}
+          title="On Theater"
+          navTo="ontheater"
+          loading={isLoadingTheater}
+          error={errorTheater}
+        />
 
-            <MovieCarousel 
-            data={topRated}
-            title={"Top Rated"}
-            navTo={"toprated"}
-            loading={isLoadingTopRated}
-            error={errorTopRated}
-            />
-          </>
-        }
+        <MovieCarousel
+          data={topRated}
+          title="Top Rated"
+          navTo="toprated"
+          loading={isLoadingTopRated}
+          error={errorTopRated}
+        />
       </>
-      )
-      }
-    </>
-  )
+    )}
+  </>
+)
 }
 
 export default HomePage

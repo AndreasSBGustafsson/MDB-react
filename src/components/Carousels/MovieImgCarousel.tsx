@@ -107,7 +107,8 @@ const MoiveImgCarousel = ({data, data2,data3, title }: Props) => {
         )}
               
         {data3 && (
-          
+          <>
+          {data3?.images.profiles.length===0 ? <></>:
           <>
             <h2>{cardTitle}</h2>
             <Carousel
@@ -144,6 +145,8 @@ const MoiveImgCarousel = ({data, data2,data3, title }: Props) => {
               ))}
             </Carousel>
             </>
+          }
+          </>
         )}
         </>
   )

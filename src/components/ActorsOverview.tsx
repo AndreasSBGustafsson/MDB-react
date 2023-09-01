@@ -8,8 +8,10 @@ type Props = {
 const ActorOverview = ({data}: Props) => {
 
     return (
-            <>
+        <>
                 <Card>
+                    {data?.images.profiles.length===0 ?<></> :
+                    <>
                     <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${data?.profile_path}`}
                     style={{
                         width:'70%',
@@ -18,20 +20,28 @@ const ActorOverview = ({data}: Props) => {
                         margin:'0 auto',
                     }}
                     />
+                    </>
+                    }
                     <Card.Body>
                         <Card.Title>
+                            
                             {data?.name}
+                            
                         </Card.Title>
                         <Card.Text
                         style={{
                             padding:'1rem',
                         }}>
+                            {data?.biography.length===0 ? <>No Info :|</>:
+                            <>
                             {data?.biography}
+                            </>
+                            }
                         </Card.Text>
                     </Card.Body>
                 </Card>
             </>
-    )
-}
-
+            )
+        }
+        
 export default ActorOverview

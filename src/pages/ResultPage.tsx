@@ -77,16 +77,16 @@ const Result = () => {
           {errorGenreList || errorGenres ? <div>Something went wrong...</div>:
             <>
               <SortResultCard
-              submit={handleSortSubmit}
-              data={genreList}
-              error={errorGenreList}
-              loading={isLoadingGenres}
+                submit={handleSortSubmit}
+                data={genreList}
+                error={errorGenreList}
+                loading={isLoadingGenres}
               />
 
               <ResultCard
-              data={genres}
-              error={errorGenres}
-              loading={isLoadingGenres}
+                data={genres}
+                error={errorGenres}
+                loading={isLoadingGenres}
               />
 
             
@@ -97,7 +97,7 @@ const Result = () => {
                 error={errorGenres}
                 onNextClick={handleNextClick}
                 onPreviousClick={handlePreviousClick}
-                />
+              />
             </>
           }
         </>
