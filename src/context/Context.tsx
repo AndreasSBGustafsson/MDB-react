@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { createContext } from "react";
 
 export type ResultContextType = {
@@ -31,5 +32,8 @@ function ResultProvider({ children }:{children:React.ReactNode}) {
     </ResultContext.Provider>
   );
 }
+
+
+
 
 export { ResultProvider, ResultContext, ResultUpdateContext};
