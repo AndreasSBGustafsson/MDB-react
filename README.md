@@ -1,22 +1,57 @@
-1. Saker att Fixa:
+📚 Project Description
+This project was developed as part of a frontend development course and serves as a personal student project aimed at building a database-like application for movie and actor information. The app is built with React, Vite, and TypeScript, and fetches data from the TMDB API.
 
-cast types for enskilda filmer och personer är inte likadana! För tillfället funkar det att kasta in parametrar även om type:sen inte stämmer. Men detta bör åtgärdas för stabilisera datainhämtning och säkerställning!
+🚀 Features & Technologies
+	•	Displays movies and actors using carousels and cards
+	•	Includes pagination, filtering, and sorting functionality
+	•	Uses custom React hooks to fetch data such as genres, popular and trending movies
+	•	Global state is handled with the Context API
+	•	Styling is managed using SCSS
+	•	The application is fully typed with TypeScript
+	•	Vite is used as the build tool for fast and optimized development
 
-Fixa Alla Genre, ska det var i flikar, ska man kunna välja dem i en helt egen sida med meny? titta in och sätt upp ( med pagenering!)!!
+📁 Project Structure (example)
+The source folder is organized into reusable and scalable modules:
+	•	components (Carousels, Pagination, Spinners)
+	•	context (for global state)
+	•	hooks (custom data-fetching logic)
+	•	pages (for routing views like home, results, etc.)
+	•	services (API calls)
+	•	types (TypeScript interfaces and types)
+	•	utils (shared utility functions)
 
-2. Se till att all fetchning sker snyggt och korrekt, utan onödiga hämtningar.
+🧠 What I Learned
+	•	How to structure a medium-to-large scale React project
+	•	Building reusable and modular components
+	•	Fetching and managing external API data
+	•	Writing type-safe code using TypeScript
+	•	Managing application state with the Context API
 
-3. Fixa Felhanteringar och göra loading spinner (globalt?)
+📌 Notes
+	•	This project is not optimized for production
+	•	The codebase is relatively large due to experimentation and learning
+	•	There are areas for improvement in structure and code reusability
+	•	The goal of the project is to demonstrate the breadth of my learning
 
-4. Fixa fungerade sökfunktion till sidan.
+🔧 How to Run Locally
+	1.	Clone the repository:
+git clone https://github.com/andreasSBGustafsson/MDB-react.git
+cd MDB-react
+	2.	Install dependencies:
+npm install
+	3.	Start the development server:
+npm run dev
+	4.	Open your browser and go to:
+http://localhost:5173
 
-5. Fixa fungerande och tillfredställande styling, titta upp carousel eller slider för smarta lösningar med scroll funktion (glöm inte , Mobile View First!).
+📦 Build for Production
+To create a production build, run:
+npm run build
+To preview the build locally:
+npm run preview
 
-6. Se över alla komponenter, effiktivisera dem och fixa custom hooks.
+📄 License
+This is a student project and the code is free to explore, reuse or draw inspiration from.
 
-7. Lägga till toastify för snygga meddelanden till besökare.
-
-8. See över att spara sökhistorik som överlever mellan sessioner ( spara data med local.storage?)
-
-
- s
+🙌 Thanks
+Big thanks to the teachers and classmates who supported and inspired the development of this project.
